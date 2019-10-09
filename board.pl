@@ -41,6 +41,8 @@ printLine([Head|Tail]) :-
 
 symbol([], S) :- S='   '.
 
+symbol([sun], S) :- S='sun'.
+
 symbol([Size, Colour, Type], S):-
     symbolSize(Size, S1),
     symbolColour(Colour, S2),
