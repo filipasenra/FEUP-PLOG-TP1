@@ -1,7 +1,4 @@
-%len of a string%
-len([],0).
-
-len([_|T],N)  :-  len(T,X),  N  is  X+1.
+initialBoard :- printMatrix([[sun]]).
 
 printBoard(X) :-
     printMatrix(X).
@@ -21,7 +18,7 @@ writeDivisions(N) :-
 printMatrix([]).
 
 printMatrix([Head | Tail]) :-
-    len(Head, LenList),
+    length(Head, LenList),
     writeDivisions(LenList),
     write(' '),
     printLine(Head),
@@ -39,25 +36,25 @@ printLine([Head|Tail]) :-
 
 %Representing a player
 
-symbol([], S) :- S='   '.
+symbol(empty, '   ').
 
-symbol([sun], S) :- S='sun'.
+symbol(sun, 'sun').
 
-symbol([Size, Colour, Type], S):-
+symbol(planet(Size, Colour, Type), S):-
     symbolSize(Size, S1),
     symbolColour(Colour, S2),
     symbolType(Type, S3),
     atom_concat(S1, S2, SF1),
     atom_concat(SF1, S3, S).
 
-symbolColour(red,S) :- S='R'.
-symbolColour(green,S) :- S='G'.
-symbolColour(blue,S) :- S='B'.
+symbolColour(red,'R').
+symbolColour(green,'G').
+symbolColour(blue,'B').
 
-symbolSize(small,S) :- S='S'.
-symbolSize(medium,S) :- S='M'.
-symbolSize(large,S) :- S='L'.
+symbolSize(small,'S').
+symbolSize(medium,'M').
+symbolSize(large,'L').
 
-symbolType(terrestrial,S) :- S='T'.
-symbolType(gaseous,S) :- S='G'.
-symbolType(ringed,S) :- S='A'.
+symbolType(terrestrial,'T').
+symbolType(gaseous,'G').
+symbolType(ringed,'R').
