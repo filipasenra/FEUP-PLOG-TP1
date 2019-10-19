@@ -1,13 +1,19 @@
+/* Display game funcion */ 
+
+ display_game(Board,Player) :-
+    board(Board, Player).
+
+
 /* Estados iniciais */
 
-initialBoard(player1) :- printMatrix([[sun]]).
+board(initial, player1) :- printMatrix([[sun]]).
 
-initialBoard(player2) :- printMatrix([[sun]]).
+board(initial, player2) :- printMatrix([[sun]]).
 
 
 /* Estados intermédios */
 
-intermediateBoard(player1) :- 
+board(intermediate, player1) :- 
     printMatrix(
         [[empty, planet(medium, white, terrestrial), empty], 
         [empty, planet(medium, green, terrestrial), planet(small, green, gaseous)],
@@ -15,7 +21,7 @@ intermediateBoard(player1) :-
         [planet(small, red, ringed), sun, empty]]).
 
 
-intermediateBoard(player2) :- 
+board(intermediate, player2) :- 
     printMatrix(
         [[planet(large, green, terrestrial), empty, empty], 
         [planet(small, green, terrestrial), empty, planet(medium, white, gaseous)],
@@ -25,7 +31,7 @@ intermediateBoard(player2) :-
 
 /*Estados finais */
 
-finalBoard(player1) :- 
+board(final, player1) :- 
     printMatrix(
         [[empty, empty, planet(small, white, ringed), planet(medium, white, ringed)], 
         [empty, empty, planet(medium, white, terrestrial), planet(medium, white, gaseous)], 
@@ -34,7 +40,7 @@ finalBoard(player1) :-
         [empty, planet(small, red, ringed), sun, planet(large, red, ringed)],
         [planet(medium, red, gaseous), planet(small, white, terrestrial), empty, empty]]).
 
-finalBoard(player2) :- 
+board(final, player2) :- 
    printMatrix(
         [[planet(large, white, ringed), empty, empty],
         [planet(large, green, ringed), empty, empty],
@@ -44,9 +50,8 @@ finalBoard(player2) :-
         [planet(small, red, gaseous), planet(small, white, gaseous), planet(small, green, ringed)],
         [planet(large, red, gaseous), empty, planet(large, white, ringed)]]).
 
-
-/* =======================================================================================================================*/
-
+/* ========================================================================================================================*/
+    
 %Writing Divisions%
 writeDivisions(0) :- write('\n').
 
