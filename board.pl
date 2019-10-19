@@ -1,8 +1,5 @@
-initialBoard :- printMatrix([[sun]]).
-
-printBoard(X) :-
-    printMatrix(X).
-
+initialBoard(player1) :- printMatrix([[sun]]).
+initialBoard(player2) :- printMatrix([[sun]]).
 
 %Writing Divisions%
 writeDivisions(0) :- write('\n').
@@ -47,13 +44,13 @@ symbol(planet(Size, Colour, Type), S):-
     atom_concat(S1, S2, SF1),
     atom_concat(SF1, S3, S).
 
-symbolColour(red,'R').
-symbolColour(green,'G').
-symbolColour(blue,'B').
-
 symbolSize(small,'S').
 symbolSize(medium,'M').
 symbolSize(large,'L').
+
+symbolColour(red,'R').
+symbolColour(green,'G').
+symbolColour(blue,'B').
 
 symbolType(terrestrial,'T').
 symbolType(gaseous,'G').
