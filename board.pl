@@ -10,12 +10,33 @@ intermediateBoard(player1) :-
         [empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
         [planet(small, red, ringed), sun, empty]]).
 
+
 intermediateBoard(player2) :- 
     printMatrix(
         [[planet(large, green, terrestrial), empty, empty], 
         [planet(small, green, terrestrial), empty, planet(medium, white, gaseous)],
         [sun, planet(medium, green, gaseous), empty],
         [planet(small, red, gaseous), empty, planet(small, green, ringed)]]).
+
+
+finalBoard(player1) :- 
+    printMatrix(
+        [[empty, empty, planet(small, white, ringed), planet(medium, white, ringed)], 
+        [empty, empty, planet(medium, white, terrestrial), planet(medium, white, gaseous)], 
+        [empty, planet(medium, green, ringed), planet(medium, green, terrestrial), planet(small, green, gaseous)],
+        [empty, empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
+        [empty, planet(small, red, ringed), sun, planet(large, red, ringed)],
+        [planet(medium, red, gaseous), planet(small, white, terrestrial), empty, empty]]).
+
+finalBoard(player2) :- 
+   printMatrix(
+        [[planet(large, white, ringed), empty, empty],
+        [planet(large, green, ringed), empty, empty],
+        [planet(large, green, terrestrial), empty, planet(medium, white, terrestrial)], 
+        [planet(small, green, terrestrial), empty, planet(medium, white, gaseous)],
+        [sun, planet(medium, green, gaseous), planet(medium, red, ringed)],
+        [planet(small, red, gaseous), planet(small, white, gaseous), planet(small, green, ringed)],
+        [planet(large, red, gaseous), empty, planet(large, white, ringed)]]).
 
 
 %Writing Divisions%
