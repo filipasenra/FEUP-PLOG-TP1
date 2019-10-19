@@ -1,5 +1,22 @@
 initialBoard(player1) :- printMatrix([[sun]]).
+
 initialBoard(player2) :- printMatrix([[sun]]).
+
+
+intermediateBoard(player1) :- 
+    printMatrix(
+        [[empty, planet(medium, white, terrestrial), empty], 
+        [empty, planet(medium, green, terrestrial), planet(small, green, gaseous)],
+        [empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
+        [planet(small, red, ringed), sun, empty]]).
+
+intermediateBoard(player2) :- 
+    printMatrix(
+        [[planet(large, green, terrestrial), empty, empty], 
+        [planet(small, green, terrestrial), empty, planet(medium, white, gaseous)],
+        [sun, planet(medium, green, gaseous), empty],
+        [planet(small, red, gaseous), empty, planet(small, green, ringed)]]).
+
 
 %Writing Divisions%
 writeDivisions(0) :- write('\n').
@@ -16,6 +33,7 @@ printMatrix([]).
 
 printMatrix([Head | Tail]) :-
     length(Head, LenList),
+    write('\n'),
     writeDivisions(LenList),
     write(' '),
     printLine(Head),
@@ -50,7 +68,7 @@ symbolSize(large,'L').
 
 symbolColour(red,'R').
 symbolColour(green,'G').
-symbolColour(blue,'B').
+symbolColour(white,'W').
 
 symbolType(terrestrial,'T').
 symbolType(gaseous,'G').
