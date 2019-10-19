@@ -1,7 +1,11 @@
+/* Estados iniciais */
+
 initialBoard(player1) :- printMatrix([[sun]]).
 
 initialBoard(player2) :- printMatrix([[sun]]).
 
+
+/* Estados intermédios */
 
 intermediateBoard(player1) :- 
     printMatrix(
@@ -18,6 +22,8 @@ intermediateBoard(player2) :-
         [sun, planet(medium, green, gaseous), empty],
         [planet(small, red, gaseous), empty, planet(small, green, ringed)]]).
 
+
+/*Estados finais */
 
 finalBoard(player1) :- 
     printMatrix(
@@ -38,6 +44,8 @@ finalBoard(player2) :-
         [planet(small, red, gaseous), planet(small, white, gaseous), planet(small, green, ringed)],
         [planet(large, red, gaseous), empty, planet(large, white, ringed)]]).
 
+
+/* =======================================================================================================================*/
 
 %Writing Divisions%
 writeDivisions(0) :- write('\n').
