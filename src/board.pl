@@ -1,9 +1,3 @@
-/* Display game funcion */ 
-
- display_game(Board,Player) :-
-    board(Board, Player).
-
-
 /* Estados iniciais */
 
 board(initial, player1) :- printMatrix([[sun]]).
@@ -50,7 +44,12 @@ board(final, player2) :-
         [planet(small, red, gaseous), planet(small, white, gaseous), planet(small, green, ringed)],
         [planet(large, red, gaseous), empty, planet(large, white, ringed)]]).
 
-    
+
+/* Display game funcion */ 
+
+ display_game(Board,Player) :-
+    board(Board, Player).
+        
 /* Writing Divisions */
 writeDivisions(0) :- write('\n').
 
