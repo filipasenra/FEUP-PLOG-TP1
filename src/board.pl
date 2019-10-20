@@ -1,55 +1,60 @@
 /* Estados iniciais */
 
-board(initial, player1) :- printMatrix([[sun]]).
+initialBoardP1 ([
+[sun]]).
 
-board(initial, player2) :- printMatrix([[sun]]).
+initialBoardP2 ([
+[sun]]).
 
 
 /* Estados intermédios */
 
-board(intermediate, player1) :- 
-    printMatrix(
-        [[empty, planet(medium, white, terrestrial), empty], 
-        [empty, planet(medium, green, terrestrial), planet(small, green, gaseous)],
-        [empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
-        [planet(small, red, ringed), sun, empty]]).
+intermediateBoardP1 ([
+[empty, planet (medium, white, terrestrial), empty], 
+[empty, planet (medium, green, terrestrial), planet (small, green, gaseous)],
+[empty, planet (small, red, terrestrial), planet (large, green, gaseous)],
+[planet (small, red, ringed), sun, empty]]).
 
+intermediateBoardP2 ([
+[empty, planet (medium, white, terrestrial), empty], 
+[empty, planet (medium, green, terrestrial), planet (small, green, gaseous)],
+[empty, planet (small, red, terrestrial), planet (large, green, gaseous)],
+[planet (small, red, ringed), sun, empty]]).
 
-board(intermediate, player2) :- 
-    printMatrix(
-        [[planet(large, green, terrestrial), empty, empty], 
-        [planet(small, green, terrestrial), empty, planet(medium, white, gaseous)],
-        [sun, planet(medium, green, gaseous), empty],
-        [planet(small, red, gaseous), empty, planet(small, green, ringed)]]).
 
 
 /*Estados finais */
 
-board(final, player1) :- 
-    printMatrix(
-        [[empty, empty, planet(small, white, ringed), planet(medium, white, ringed)], 
-        [empty, empty, planet(medium, white, terrestrial), planet(medium, white, gaseous)], 
-        [empty, planet(medium, green, ringed), planet(medium, green, terrestrial), planet(small, green, gaseous)],
-        [empty, empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
-        [empty, planet(small, red, ringed), sun, planet(large, red, ringed)],
-        [planet(medium, red, gaseous), planet(small, white, terrestrial), empty, empty]]).
+finalBoardP1 ([
+[empty, empty, planet (small, white, ringed), planet (medium, white, ringed)], 
+[empty, empty, planet (medium, white, terrestrial), planet (medium, white, gaseous)], 
+[empty, planet (medium, green, ringed), planet (medium, green, terrestrial), planet (small, green, gaseous)],
+[empty, empty, planet (small, red, terrestrial), planet (large, green, gaseous)],
+[empty, planet (small, red, ringed), sun, planet (large, red, ringed)],
+[planet (medium, red, gaseous), planet (small, white, terrestrial), empty, empty]]).
 
-board(final, player2) :- 
-   printMatrix(
-        [[planet(large, white, ringed), empty, empty],
-        [planet(large, green, ringed), empty, empty],
-        [planet(large, green, terrestrial), empty, planet(medium, white, terrestrial)], 
-        [planet(small, green, terrestrial), empty, planet(medium, white, gaseous)],
-        [sun, planet(medium, green, gaseous), planet(medium, red, ringed)],
-        [planet(small, red, gaseous), planet(small, white, gaseous), planet(small, green, ringed)],
-        [planet(large, red, gaseous), empty, planet(large, white, ringed)]]).
+finalBoardP2 ([
+[empty, empty, planet (small, white, ringed), planet (medium, white, ringed)], 
+[empty, empty, planet (medium, white, terrestrial), planet (medium, white, gaseous)], 
+[empty, planet (medium, green, ringed), planet (medium, green, terrestrial), planet (small, green, gaseous)],
+[empty, empty, planet (small, red, terrestrial), planet (large, green, gaseous)],
+[empty, planet (small, red, ringed), sun, planet (large, red, ringed)],
+[planet (medium, red, gaseous), planet (small, white, terrestrial), empty, empty]]).
 
 
-/* Display game funcion */ 
 
- display_game(Board,Player) :-
-    board(Board, Player).
-        
+
+/* Prints the Matrix */
+display_game([]).
+
+display_game([Head | Tail]) :-
+    length(Head, LenList),
+    write('\n'),
+    writeDivisions(LenList),
+    write(' '),
+    printLine(Head),
+    display_game(Tail).
+
 /* Writing Divisions */
 writeDivisions(0) :- write('\n').
 
@@ -58,19 +63,6 @@ writeDivisions(N) :-
     N1 is N - 1,
     write('-----|'),
     writeDivisions(N1).
-
-
-/* Prints the Matrix */
-printMatrix([]).
-
-printMatrix([Head | Tail]) :-
-    length(Head, LenList),
-    write('\n'),
-    writeDivisions(LenList),
-    write(' '),
-    printLine(Head),
-    printMatrix(Tail).
-
 
 /* Prints each Line */
 printLine([]).
