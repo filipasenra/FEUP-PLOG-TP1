@@ -1,45 +1,45 @@
 /* Estados iniciais */
 
-initialBoardP1 ([
+initialBoardP1([
 [sun]]).
 
-initialBoardP2 ([
+initialBoardP2([
 [sun]]).
 
 
 /* Estados intermédios */
 
-intermediateBoardP1 ([
-[empty, planet (medium, white, terrestrial), empty], 
-[empty, planet (medium, green, terrestrial), planet (small, green, gaseous)],
-[empty, planet (small, red, terrestrial), planet (large, green, gaseous)],
-[planet (small, red, ringed), sun, empty]]).
+intermediateBoardP1([
+[empty, planet(medium, white, terrestrial), empty], 
+[empty, planet(medium, green, terrestrial), planet(small, green, gaseous)],
+[empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
+[planet(small, red, ringed), sun, empty]]).
 
-intermediateBoardP2 ([
-[empty, planet (medium, white, terrestrial), empty], 
-[empty, planet (medium, green, terrestrial), planet (small, green, gaseous)],
-[empty, planet (small, red, terrestrial), planet (large, green, gaseous)],
-[planet (small, red, ringed), sun, empty]]).
+intermediateBoardP2([
+[empty, planet(medium, white, terrestrial), empty], 
+[empty, planet(medium, green, terrestrial), planet(small, green, gaseous)],
+[empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
+[planet(small, red, ringed), sun, empty]]).
 
 
 
 /*Estados finais */
 
-finalBoardP1 ([
-[empty, empty, planet (small, white, ringed), planet (medium, white, ringed)], 
-[empty, empty, planet (medium, white, terrestrial), planet (medium, white, gaseous)], 
-[empty, planet (medium, green, ringed), planet (medium, green, terrestrial), planet (small, green, gaseous)],
-[empty, empty, planet (small, red, terrestrial), planet (large, green, gaseous)],
-[empty, planet (small, red, ringed), sun, planet (large, red, ringed)],
-[planet (medium, red, gaseous), planet (small, white, terrestrial), empty, empty]]).
+finalBoardP1([
+[empty, empty, planet(small, white, ringed), planet(medium, white, ringed)], 
+[empty, empty, planet(medium, white, terrestrial), planet(medium, white, gaseous)], 
+[empty, planet(medium, green, ringed), planet(medium, green, terrestrial), planet(small, green, gaseous)],
+[empty, empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
+[empty, planet(small, red, ringed), sun, planet(large, red, ringed)],
+[planet(medium, red, gaseous), planet(small, white, terrestrial), empty, empty]]).
 
-finalBoardP2 ([
-[empty, empty, planet (small, white, ringed), planet (medium, white, ringed)], 
-[empty, empty, planet (medium, white, terrestrial), planet (medium, white, gaseous)], 
-[empty, planet (medium, green, ringed), planet (medium, green, terrestrial), planet (small, green, gaseous)],
-[empty, empty, planet (small, red, terrestrial), planet (large, green, gaseous)],
-[empty, planet (small, red, ringed), sun, planet (large, red, ringed)],
-[planet (medium, red, gaseous), planet (small, white, terrestrial), empty, empty]]).
+finalBoardP2([
+[empty, empty, planet(small, white, ringed), planet(medium, white, ringed)], 
+[empty, empty, planet(medium, white, terrestrial), planet(medium, white, gaseous)], 
+[empty, planet(medium, green, ringed), planet(medium, green, terrestrial), planet(small, green, gaseous)],
+[empty, empty, planet(small, red, terrestrial), planet(large, green, gaseous)],
+[empty, planet(small, red, ringed), sun, planet(large, red, ringed)],
+[planet(medium, red, gaseous), planet(small, white, terrestrial), empty, empty]]).
 
 
 
