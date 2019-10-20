@@ -50,9 +50,8 @@ board(final, player2) :-
         [planet(small, red, gaseous), planet(small, white, gaseous), planet(small, green, ringed)],
         [planet(large, red, gaseous), empty, planet(large, white, ringed)]]).
 
-/* ========================================================================================================================*/
     
-%Writing Divisions%
+/* Writing Divisions */
 writeDivisions(0) :- write('\n').
 
 writeDivisions(N) :-
@@ -62,7 +61,7 @@ writeDivisions(N) :-
     writeDivisions(N1).
 
 
-%Prints the Matrix
+/* Prints the Matrix */
 printMatrix([]).
 
 printMatrix([Head | Tail]) :-
@@ -74,7 +73,7 @@ printMatrix([Head | Tail]) :-
     printMatrix(Tail).
 
 
-%Prints each Line
+/* Prints each Line */
 printLine([]).
 
 printLine([Head|Tail]) :-
@@ -83,7 +82,8 @@ printLine([Head|Tail]) :-
     write(' | '),
     printLine(Tail).
 
-%Representing a player
+
+/*Representing a play */
 
 symbol(empty, '   ').
 
