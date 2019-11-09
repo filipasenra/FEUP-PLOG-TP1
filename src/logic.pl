@@ -74,12 +74,13 @@ subsPosition([T | NewBoard], [T|L], coord(X, Y), Element) :-
     Y is Y1 + 1.
 
 /* Subs Element at a certain Position of a List */
-replace([_|T], 0, X, [X|T]).
 
-replace([H|T], I, X, [H|R]):- 
+replace([_| Tail ], 0, X, [NewBoard | Tail]).
+
+replace([H| Tail ], I, X, [H | RecursiveTail]):- 
     I > -1, 
     NI is I-1, 
-    replace(T, NI, X, R), 
+    replace(Tail , NI, X, RecursiveTail), 
     !.
 
 replace(L, _, _, L).
