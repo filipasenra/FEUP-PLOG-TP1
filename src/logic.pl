@@ -1,4 +1,5 @@
 :- consult('board.pl').
+:- use_module(library(lists)).
 
 addPiece(coord(X, Y), planet(Size, Colour, Type), OldBoard, NewBoard) :-
         symbol(planet(Size, Colour, Type), S),
@@ -6,12 +7,34 @@ addPiece(coord(X, Y), planet(Size, Colour, Type), OldBoard, NewBoard) :-
         addLine(Y, Board_1, Board_2),
         updateCoord(X, X1),
         updateCoord(Y, Y1),
+        checkMove(coord(X1, Y1), Board_2),
         subsPosition(NewBoard, Board_2, coord(X1, Y1), S).
 
 /* Correct Coordenates after adjusting Board*/
 
 updateCoord(0, 0).
-updateCoord(X, NewX) :- NewX is X - 1.
+updateCoord(X, NewX) :- NewX is X-1.
+
+/* Check Move */
+checkMove(coord(X, Y), Board) :-
+findElement(coord(X, Y), Board, Element),
+Element == 'empty',
+
+(X1 is X-1, findElement(coord(X1, Y), Board, Element1), Element1 \== 'empty');
+(Y1 is Y-1, findElement(coord(X, Y1), Board, Element2), Element2 \== 'empty');
+(X1 is X-1, Y1 is Y-1, findElement(coord(X1, Y1), Board, Element3), Element3 \== 'empty');
+(X2 is X+1, findElement(coord(X2, Y), Board, Element4), Element4 \== 'empty');
+(Y2 is Y+1, findElement(coord(X, Y2), Board, Element5), Element5 \== 'empty');
+(X2 is X+1, Y2 is Y+1, findElement(coord(X2, Y2), Board, Element6), Element6 \== 'empty');
+(X1 is X-1, Y2 is Y+1, findElement(coord(X1, Y2), Board, Element7), Element7 \== 'empty');
+(X2 is X+1, Y1 is Y-1, findElement(coord(X2, Y1), Board, Element8), Element8 \== 'empty').
+
+
+findElement(coord(X, Y), Board, Element) :-
+length(Board, LenList1), Y < LenList1, Y >= 0, 
+nth0(Y, Board, NewList),
+length(NewList, LenList2), X < LenList2, X >= 0, 
+nth0(X, NewList, Element).
 
 /* Adding Column */
 
@@ -70,7 +93,7 @@ subsPosition([NewBoard | Tail], [OldBoard | Tail], coord(X, 0), Element) :-
     replace(OldBoard, X, Element, NewBoard).
 
 subsPosition([T | NewBoard], [T|L], coord(X, Y), Element) :-
-    element_at(NewBoard, L, coord(X, Y1), Element), 
+    subsPosition(NewBoard, L, coord(X, Y1), Element), 
     Y is Y1 + 1.
 
 /* Subs Element at a certain Position of a List */
