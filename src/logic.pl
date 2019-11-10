@@ -75,12 +75,12 @@ subsPosition([T | NewBoard], [T|L], coord(X, Y), Element) :-
 
 /* Subs Element at a certain Position of a List */
 
-replace([_| Tail ], 0, X, [NewBoard | Tail]).
+replace([_| Tail ], 0, Element, [Element | Tail]).
 
-replace([H| Tail ], I, X, [H | RecursiveTail]):- 
-    I > -1, 
-    NI is I-1, 
-    replace(Tail , NI, X, RecursiveTail), 
+replace([H| Tail ], X, Element, [H | RecursiveTail]):- 
+    X > -1, 
+    NI is X-1, 
+    replace(Tail , NI, Element, RecursiveTail), 
     !.
 
 replace(L, _, _, L).
