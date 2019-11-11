@@ -88,8 +88,7 @@ constructLine(N, [NewLine | Tail]) :-
     constructLine(N1, Tail).
 
 /* END Adding Line */
-<<<<<<< HEAD
-=======
+
 /* Finds List Where the element needs to be subs and replaces it */
 subsPosition([NewBoard | Tail], [OldBoard | Tail], coord(X, 0), Element) :- 
     replace(OldBoard, X, Element, NewBoard).
@@ -116,4 +115,3 @@ replace(L, _, _, L).
 
 
         
->>>>>>> 4574423e22c8c79510d509884f8b37ffedfe061f
