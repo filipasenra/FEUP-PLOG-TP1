@@ -1,11 +1,14 @@
 initialBoard :- printMatrix([[sun]]).
 
-printBoard(X) :-
-    printMatrix(X).
+printBoard([Head | Tail]) :-
+    length(Head, LenList),
+    writeNumbersRow(LenList, 0),
+    writeDivisions(LenList),
+    printMatrix([Head | Tail], 0).
 
 
 %Writing Divisions%
-writeDivisions(0) :- write('\n').
+writeDivisions(0) :- write('-----|-----|-----|\n').
 
 writeDivisions(N) :-
     N > 0,
@@ -14,24 +17,72 @@ writeDivisions(N) :-
     writeDivisions(N1).
 
 
-%Prints the Matrix
-printMatrix([]).
+/* Write Top Row Of Numbers */
 
-printMatrix([Head | Tail]) :-
+/* Base Case */
+writeNumbersRow(N, CurrentNumber) :- 
+    CurrentNumber > N + 1,
+    write('\n').
+
+/* Special Case to Add the First Space*/
+writeNumbersRow(N, 0) :-
+    write('     |'),
+    writeNumber(0),
+    writeNumbersRow(N, 1).
+
+/* Recursive Case */
+writeNumbersRow(N, CurrentNumber) :-
+    CurrentNumber =< N + 1,
+    writeNumber(CurrentNumber),
+    N1 is CurrentNumber + 1,
+    writeNumbersRow(N, N1).
+
+/* Write Number*/
+writeNumber(N) :-
+ write('  '), write(N), write('  |').
+
+
+/* Prints N empty Spaces */
+writeEmptySpaces(0) :-
+    write('     |     |\n').
+
+writeEmptySpaces(N) :-
+    write('     |'),
+    N1 is N-1,
+    writeEmptySpaces(N1).
+
+
+
+%Prints the Matrix
+printMatrix([], N) :-
+    writeNumber(N),
+    write('\n').
+
+printMatrix([Head | Tail], 0) :-
+    writeNumber(0),
+    length(Head, LenList),
+    writeEmptySpaces(LenList),
+    writeDivisions(LenList),
+    printMatrix([Head | Tail], 1).
+
+printMatrix([Head | Tail], N) :-
+    writeNumber(N),
+    write('     |'),
+    printLine(Head),
     length(Head, LenList),
     writeDivisions(LenList),
-    write(' '),
-    printLine(Head),
-    printMatrix(Tail).
+    N1 is N+1,
+    printMatrix(Tail, N1).
 
 
 %Prints each Line
-printLine([]).
+printLine([]) :- write('     |\n').
 
 printLine([Head|Tail]) :-
     symbol(Head, S),
+    write(' '),
     write(S),
-    write(' | '),
+    write(' |'),
     printLine(Tail).
 
 %Representing a player
