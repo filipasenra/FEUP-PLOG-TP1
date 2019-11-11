@@ -34,14 +34,14 @@ addEmptySpotFirst([Head | Tail], [NewBoard | NewTail]) :-
 
 addLine(0, [OldBoard | Tail], NewBoard) :-
     length(OldBoard, LenList),
-    constructLine(LenList, NewList),    
+    constructLine(LenList, NewList),
     append([NewList], [OldBoard | Tail], NewBoard).
 
 addLine(X, [OldBoard | Tail], NewBoard) :-
     length([OldBoard | Tail], N_Lines),
     X > N_Lines,
     length(OldBoard, LenList),
-    constructLine(LenList, NewList),    
+    constructLine(LenList, NewList),
     append( [OldBoard | Tail], [NewList], NewBoard).
 
 constructLine(0, []).
@@ -53,9 +53,3 @@ constructLine(N, [NewLine | Tail]) :-
     constructLine(N1, Tail).
 
 /* END Adding Line */
-
-
-
-
-
-        
