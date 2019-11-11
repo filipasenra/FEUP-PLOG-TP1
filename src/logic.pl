@@ -46,7 +46,7 @@ addColumn(X, [Head | Tail], NewBoard) :-
     X > LenList,
     addEmptySpotLast([Head | Tail], NewBoard).
 
-addColumn(X, OldBoard, OldBoard).
+addColumn(_, OldBoard, OldBoard).
 
 addEmptySpotLast([], []).
 
@@ -77,7 +77,7 @@ addLine(X, [OldBoard | Tail], NewBoard) :-
     constructLine(LenList, NewList),
     append( [OldBoard | Tail], [NewList], NewBoard).
 
-addLine(X, OldBoard, OldBoard).
+addLine(_, OldBoard, OldBoard).
 
 constructLine(0, []).
 

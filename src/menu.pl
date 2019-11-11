@@ -23,7 +23,7 @@ manageInput(0) :-
     write('\nSee you next time!\n\n').
 
 manageInput(_Other) :-
-    write('\nERROR: that option does not exist.\n\n'),
+    write('\nERROR: option '), write(_Other), write(' does not exist.\n\n'),
     askMenuOption,
     read(Input),
     manageInput(Input).
