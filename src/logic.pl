@@ -131,6 +131,7 @@ startGame(Player1, Player2) :-
       initialBoard(BoardPlayer2),
       allCards(AllCards),
       random_permutation(AllCards, AllCardsShuffled),
+      printCards(AllCardsShuffled),
       playGame(BoardPlayer1, NewBoardPlayer1 , Player1),
       playGame(BoardPlayer2, NewBoardPlayer2 , Player2).
 

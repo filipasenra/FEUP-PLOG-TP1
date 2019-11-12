@@ -9,6 +9,33 @@ allCards([planet(small, red, terrestrial), planet(small, green, terrestrial), pl
           planet(medium, red, terrestrial), planet(large, red, terrestrial)
           ]).
 
+printCards(List) :-
+length(List, LenList),
+getLenListNew(LenList, LenListNew),
+writeNumbersRow(LenListNew, 1),
+printLineCards(List, 0).
+
+getLenListNew(LenList, LenListNew):-
+LenList < 6,
+LenListNew is LenList - 1.
+
+getLenListNew(_, 5).
+
+/*Prints each Line for Cards*/
+printLineCards([], _).
+
+printLineCards([Head|Tail], N) :-
+    N < 6,
+    symbol(Head, S),
+    write(' '),
+    write(S),
+    write(' |'),
+    N1 is N + 1,
+    printLineCards(Tail, N1).
+
+printLineCards(_, _).
+
+
 printBoard([Head | Tail]) :-
     length(Head, LenList),
     writeNumbersRow(LenList, 0),
@@ -48,7 +75,12 @@ writeNumbersRow(N, CurrentNumber) :-
 
 /* Write Number*/
 writeNumber(N) :-
- write('  '), write(N), write('  |').
+N < 10,
+write('  '), write(N), write('  |').
+
+/* Write Number*/
+writeNumber(N) :-
+ write('  '), write(N), write(' |').
 
 
 /* Prints N empty Spaces */
@@ -78,13 +110,14 @@ printMatrix([Head | Tail], N, LenList) :-
     writeNumber(N),
     write('     |'),
     printLine(Head),
+    write('     |\n'),
     writeDivisions(LenList),
     N1 is N+1,
     printMatrix(Tail, N1, LenList).
 
 
 %Prints each Line
-printLine([]) :- write('     |\n').
+printLine([]).
 
 printLine([Head|Tail]) :-
     symbol(Head, S),
