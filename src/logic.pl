@@ -1,5 +1,6 @@
 :- consult('board.pl').
 :- use_module(library(lists)).
+:- use_module(library(random)).
 
 addPiece(coord(X, Y), planet(Size, Colour, Type), OldBoard, NewBoard) :-
         addColumn(X, OldBoard, Board_1),
@@ -128,6 +129,8 @@ printBoard(NewBoard).
 startGame(Player1, Player2) :-
       initialBoard(BoardPlayer1),
       initialBoard(BoardPlayer2),
+      allCards(AllCards),
+      random_permutation(AllCards, AllCardsShuffled),
       playGame(BoardPlayer1, NewBoardPlayer1 , Player1),
       playGame(BoardPlayer2, NewBoardPlayer2 , Player2).
 
