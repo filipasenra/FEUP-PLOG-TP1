@@ -6,8 +6,8 @@ manageColumn(NewColumn) :-
     readColumn(NewColumn).
     /* validateColumn(Column, NewColumn).*/
 
-managePlanet(planet(Size, Colour, Type)) :-
-    readPlanet(planet(Size, Colour, Type)).
+managePlanet(Planet) :-
+    readPlanet(Planet).
     /* validateRow(Row, NewRow).*/
 
 readRow(Row) :-
@@ -19,11 +19,6 @@ readColumn(Column) :-
     read(Column).
 
     
-readPlanet(planet(Size, Colour, Type)):-
-    write('  > Planet:\n'),
-    write('    > Size: '),
-    read(Size),
-    write('    > Colour: '),
-    read(Colour),
-    write('    > Type: '),
-    read(Type).
+readPlanet(Planet):-
+    write('  > Planet: '),
+    read(Planet).

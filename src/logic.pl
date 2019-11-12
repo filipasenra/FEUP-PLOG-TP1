@@ -111,18 +111,23 @@ replace(L, _, _, L).
 
 /*================================================================================================================*/
 
-playerTurn(Board, NewBoard, Player) :-
+getPlanet(Cards, IndexPlanet, Planet) :-
+nth1(IndexPlanet, Cards, Planet).
+
+
+playerTurn(Board, NewBoard, Player, Cards, NewCards) :-
 write('\n'), printBoard(Board),
 write(Player), write('\'s turn!\n'),
 manageColumn(Column),
 manageRow(Row),
-managePlanet(planet(Size, Colour, Type)),
+managePlanet(IndexPlanet),
+getPlanet(Cards, IndexPlanet, Planet),
 !,
-(addPiece(coord(Column, Row), planet(Size, Colour, Type), Board, NewBoard);
-write('Not Possible!\n'), playerTurn(Board, NewBoard, Player)).
+(addPiece(coord(Column, Row), Planet, Board, NewBoard), nth1(IndexPlanet, Cards, _, NewCards);
+write('Not Possible!\n'), playerTurn(Board, NewBoard, Player, Cards)).
 
-playGame(Board, NewBoard, Player) :-
-playerTurn(Board, NewBoard, Player),
+playGame(Board, NewBoard, Player, Cards, NewCards) :-
+playerTurn(Board, NewBoard, Player, Cards, NewCards),
 printBoard(NewBoard).
 
 
@@ -132,8 +137,9 @@ startGame(Player1, Player2) :-
       allCards(AllCards),
       random_permutation(AllCards, AllCardsShuffled),
       printCards(AllCardsShuffled),
-      playGame(BoardPlayer1, NewBoardPlayer1 , Player1),
-      playGame(BoardPlayer2, NewBoardPlayer2 , Player2).
+      playGame(BoardPlayer1, NewBoardPlayer1 , Player1, AllCardsShuffled, NewCards),
+      printCards(NewCards),
+      playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2).
 
 
 
