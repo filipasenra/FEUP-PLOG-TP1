@@ -111,7 +111,7 @@ replace(L, _, _, L).
 /*================================================================================================================*/
 
 playGame(Board, NewBoard, Player) :-
-printBoard(Board),
+write('\n'), printBoard(Board),
 write(Player), write('\'s turn!\n'),
 manageColumn(Column),
 manageRow(Row),
@@ -123,7 +123,8 @@ printBoard(NewBoard).
 startGame(Player1, Player2) :-
       initialBoard(BoardPlayer1),
       initialBoard(BoardPlayer2),
-      playGame(BoardPlayer1, NewBoardPlayer1 , Player1).
+      playGame(BoardPlayer1, NewBoardPlayer1 , Player1),
+      playGame(BoardPlayer2, NewBoardPlayer2 , Player2).
 
 
 
