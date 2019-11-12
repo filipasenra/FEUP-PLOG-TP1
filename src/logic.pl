@@ -162,6 +162,22 @@ startGame(Player1, Player2) :-
 checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2) :- write('CheckWinner still in development!\n').
 
 
+checkPointsSizeRow([], _, Points, Points, _).
+
+checkPointsSizeRow([planet(Size_1, _, _) | Tail], Size, Points, NewPoints, N) :-
+    Size == Size_1,
+    N >= 2,
+    NewPoints1 is Points + 1,
+    N1 is N + 1,
+    checkPointsSizeRow(Tail, Size, NewPoints1, NewPoints, N1).
+
+checkPointsSizeRow([planet(Size_1, _, _) | Tail], Size, Points, NewPoints, N) :-
+    Size == Size_1,
+    N1 is N + 1,
+    checkPointsSizeRow(Tail, Size, Points, NewPoints, N1).
+
+checkPointsSizeRow([planet(_, _, _) | Tail], _, Points, Points, _).
+
 
 
 
