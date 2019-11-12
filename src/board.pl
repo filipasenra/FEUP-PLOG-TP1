@@ -13,7 +13,8 @@ printCards(List) :-
 length(List, LenList),
 getLenListNew(LenList, LenListNew),
 writeNumbersRow(LenListNew, 1),
-printLineCards(List, 0).
+printLineCards(List, 0),
+write('\n').
 
 getLenListNew(LenList, LenListNew):-
 LenList < 6,

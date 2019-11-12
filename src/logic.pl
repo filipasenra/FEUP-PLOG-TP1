@@ -119,19 +119,35 @@ nth1(IndexPlanet, Cards, _, NewCards).
 
 
 playerTurn(Board, NewBoard, Player, Cards, NewCards) :-
-write('\n'), printBoard(Board),
-write(Player), write('\'s turn!\n'),
 manageColumn(Column),
 manageRow(Row),
 managePlanet(IndexPlanet),
 getPlanet(Cards, IndexPlanet, Planet),
 !,
-(addPiece(coord(Column, Row), Planet, Board, NewBoard), eliminatePlanet(Cards, IndexPlanet, NewCards);
-write('Not Possible!\n'), playerTurn(Board, NewBoard, Player, NewCards)).
+((addPiece(coord(Column, Row), Planet, Board, NewBoard), !, eliminatePlanet(Cards, IndexPlanet, NewCards));
+
+(write('Not Possible!\n'), playerTurn(Board, NewBoard, Player, Cards, NewCards))).
 
 playGame(Board, NewBoard, Player, Cards, NewCards) :-
-playerTurn(Board, NewBoard, Player, Cards, NewCards),
-printBoard(NewBoard).
+printCards(Cards),
+write('\n'), printBoard(Board),
+write(Player), write('\'s turn!\n'),
+playerTurn(Board, NewBoard, Player, Cards, NewCards).
+
+clearScreen(_) :- write('\e[2J').
+
+isGameToContinue(Cards) :-
+length(Cards, LenList),
+LenList > 1.
+
+gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
+    clearScreen(_),
+    playGame(BoardPlayer1, NewBoardPlayer1 , Player1, Cards, NewCards),
+    clearScreen(_),
+    playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2),
+    
+    !, isGameToContinue(NewCards2),
+    gameLoop(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2, NewCards2).
 
 
 startGame(Player1, Player2) :-
@@ -139,10 +155,8 @@ startGame(Player1, Player2) :-
       initialBoard(BoardPlayer2),
       allCards(AllCards),
       random_permutation(AllCards, AllCardsShuffled),
-      printCards(AllCardsShuffled),
-      playGame(BoardPlayer1, NewBoardPlayer1 , Player1, AllCardsShuffled, NewCards),
-      printCards(NewCards),
-      playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2).
+      gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, AllCardsShuffled);
+      write('Thanks for Playing!\n').
 
 
 
