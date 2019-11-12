@@ -140,7 +140,7 @@ isGameToContinue(Cards) :-
 length(Cards, LenList),
 LenList > 1.
 
-gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
+gameLoop(Player1, Player2, BoardPlayer1, NewBoardPlayer1, BoardPlayer2, NewBoardPlayer2, Cards) :-
     clearScreen(_),
     playGame(BoardPlayer1, NewBoardPlayer1 , Player1, Cards, NewCards),
     clearScreen(_),
@@ -155,8 +155,11 @@ startGame(Player1, Player2) :-
       initialBoard(BoardPlayer2),
       allCards(AllCards),
       random_permutation(AllCards, AllCardsShuffled),
-      gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, AllCardsShuffled);
+      gameLoop(Player1, Player2, BoardPlayer1, NewBoardPlayer1, BoardPlayer2, NewBoardPlayer2, AllCardsShuffled);
+      checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2),
       write('Thanks for Playing!\n').
+
+checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2) :- write('CheckWinner still in development!\n').
 
 
 
