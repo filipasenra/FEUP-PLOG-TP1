@@ -110,13 +110,18 @@ replace(L, _, _, L).
 
 /*================================================================================================================*/
 
-playGame(Board, NewBoard, Player) :-
+playerTurn(Board, NewBoard, Player) :-
 write('\n'), printBoard(Board),
 write(Player), write('\'s turn!\n'),
 manageColumn(Column),
 manageRow(Row),
 managePlanet(planet(Size, Colour, Type)),
-addPiece(coord(Column, Row), planet(Size, Colour, Type), Board, NewBoard),
+!,
+(addPiece(coord(Column, Row), planet(Size, Colour, Type), Board, NewBoard);
+write('Not Possible!\n'), playerTurn(Board, NewBoard, Player)).
+
+playGame(Board, NewBoard, Player) :-
+playerTurn(Board, NewBoard, Player),
 printBoard(NewBoard).
 
 
