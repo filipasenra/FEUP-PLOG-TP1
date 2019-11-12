@@ -162,6 +162,16 @@ startGame(Player1, Player2) :-
 checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2) :- write('CheckWinner still in development!\n').
 
 
+
+/* =================== All Points In a Row =========================== */
+allPointsRow([planet(Size, Colour, Type) | Tail], Points) :-
+checkPointsSizeRow(Tail, Size, 0, NewPoints_Size, 1),
+checkPointsColourRow(Tail, Colour, 0, NewPoints_Colour, 1),
+checkPointsTypeRow(Tail, Type, 0, NewPoints_Type, 1),
+Points is NewPoints_Size + NewPoints_Colour + NewPoints_Type.
+
+
+/* =================== SIZE =================== */
 checkPointsSizeRow([], _, Points, Points, _).
 
 checkPointsSizeRow([planet(Size_1, _, _) | Tail], Size, Points, NewPoints, N) :-
@@ -176,7 +186,44 @@ checkPointsSizeRow([planet(Size_1, _, _) | Tail], Size, Points, NewPoints, N) :-
     N1 is N + 1,
     checkPointsSizeRow(Tail, Size, Points, NewPoints, N1).
 
-checkPointsSizeRow([planet(_, _, _) | Tail], _, Points, Points, _).
+checkPointsSizeRow([planet(Size_1, _, _) | Tail], _, Points, NewPoints, _) :-
+checkPointsSizeRow(Tail, Size_1, Points, NewPoints, 1).
+
+/* =================== Colour =================== */
+checkPointsColourRow([], _, Points, Points, _).
+
+checkPointsColourRow([planet(_, Colour_1, _) | Tail], Colour, Points, NewPoints, N) :-
+    Colour == Colour_1,
+    N >= 2,
+    NewPoints1 is Points + 1,
+    N1 is N + 1,
+    checkPointsColourRow(Tail, Colour, NewPoints1, NewPoints, N1).
+
+checkPointsColourRow([planet(_, Colour_1, _) | Tail], Colour, Points, NewPoints, N) :-
+    Colour == Colour_1,
+    N1 is N + 1,
+    checkPointsColourRow(Tail, Colour, Points, NewPoints, N1).
+
+checkPointsColourRow([planet(_, Colour_1, _) | Tail], _, Points, NewPoints, _) :-
+checkPointsColourRow(Tail, Colour_1, Points, NewPoints, 1).
+
+/* =================== Type =================== */
+checkPointsTypeRow([], _, Points, Points, _).
+
+checkPointsTypeRow([planet(_, _, Type_1) | Tail], Type, Points, NewPoints, N) :-
+    Type == Type_1,
+    N >= 2,
+    NewPoints1 is Points + 1,
+    N1 is N + 1,
+    checkPointsTypeRow(Tail, Type, NewPoints1, NewPoints, N1).
+
+checkPointsTypeRow([planet(_, _, Type_1) | Tail], Type, Points, NewPoints, N) :-
+    Type == Type_1,
+    N1 is N + 1,
+    checkPointsTypeRow(Tail, Type, Points, NewPoints, N1).
+
+checkPointsTypeRow([planet(_, _, Type_1) | Tail], _, Points, NewPoints, _) :-
+checkPointsTypeRow(Tail, Type_1, Points, NewPoints, 1).
 
 
 
