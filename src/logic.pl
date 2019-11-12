@@ -2,13 +2,12 @@
 :- use_module(library(lists)).
 
 addPiece(coord(X, Y), planet(Size, Colour, Type), OldBoard, NewBoard) :-
-        symbol(planet(Size, Colour, Type), S),
         addColumn(X, OldBoard, Board_1),
         addLine(Y, Board_1, Board_2),
         updateCoord(X, X1),
         updateCoord(Y, Y1),
         checkMove(coord(X1, Y1), Board_2),
-        subsPosition(NewBoard, Board_2, coord(X1, Y1), S).
+        subsPosition(NewBoard, Board_2, coord(X1, Y1), planet(Size, Colour, Type)).
 
 /* Correct Coordenates after adjusting Board*/
 
@@ -108,6 +107,23 @@ replace([H| Tail ], X, Element, [H | RecursiveTail]):-
     !.
 
 replace(L, _, _, L).
+
+/*================================================================================================================*/
+
+playGame(Board, NewBoard, Player) :-
+printBoard(Board),
+write(Player), write('\'s turn!\n'),
+manageColumn(Column),
+manageRow(Row),
+managePlanet(planet(Size, Colour, Type)),
+addPiece(coord(Column, Row), planet(Size, Colour, Type), Board, NewBoard),
+printBoard(NewBoard).
+
+
+startGame(Player1, Player2) :-
+      initialBoard(BoardPlayer1),
+      initialBoard(BoardPlayer2),
+      playGame(BoardPlayer1, NewBoardPlayer1 , Player1).
 
 
 

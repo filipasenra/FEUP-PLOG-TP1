@@ -1,4 +1,4 @@
-initialBoard :- printMatrix([[sun]]).
+initialBoard([[sun]]).
 
 printBoard([Head | Tail]) :-
     length(Head, LenList),
