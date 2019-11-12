@@ -114,6 +114,9 @@ replace(L, _, _, L).
 getPlanet(Cards, IndexPlanet, Planet) :-
 nth1(IndexPlanet, Cards, Planet).
 
+eliminatePlanet(Cards, IndexPlanet, NewCards) :-
+nth1(IndexPlanet, Cards, _, NewCards).
+
 
 playerTurn(Board, NewBoard, Player, Cards, NewCards) :-
 write('\n'), printBoard(Board),
@@ -123,8 +126,8 @@ manageRow(Row),
 managePlanet(IndexPlanet),
 getPlanet(Cards, IndexPlanet, Planet),
 !,
-(addPiece(coord(Column, Row), Planet, Board, NewBoard), nth1(IndexPlanet, Cards, _, NewCards);
-write('Not Possible!\n'), playerTurn(Board, NewBoard, Player, Cards)).
+(addPiece(coord(Column, Row), Planet, Board, NewBoard), eliminatePlanet(Cards, IndexPlanet, NewCards);
+write('Not Possible!\n'), playerTurn(Board, NewBoard, Player, NewCards)).
 
 playGame(Board, NewBoard, Player, Cards, NewCards) :-
 playerTurn(Board, NewBoard, Player, Cards, NewCards),
