@@ -1,5 +1,7 @@
 
+/* ========================================================================== */
 /* =================== All Points In every Column =========================== */
+/* Receives a List of Lists */
 
 allPointsColumn([], 0).
 
@@ -13,6 +15,17 @@ allPointsColumnAUX(ListOfLists, LenList, Points) :-
 pointsInColumn(ListOfLists, Points, LenList),
 NewLenList is LenList - 1,
 allPointsColumnAUX(ListOfLists, NewLenList, Points).
+
+/* ========================================================================= */
+/* =================== All Points In a evert Row =========================== */
+/* Receives a List of Lists */
+
+allPointsRow([], _).
+
+allPointsRow([Head | Tail], Points) :-
+pointsInRow(Head, Points),
+allPointsRow(Tail, Points).
+
 
 
 /* =================== All Points In a Column =========================== */
@@ -30,15 +43,6 @@ getColumnList([Head | Tail], List, NewList, N_element) :-
 nth1(N_element, Head, Elem),
 append(List, [Elem], TMP),
 getColumnList(Tail, TMP, NewList, N_element).
-
-/* =================== All Points In a evert Row =========================== */
-
-allPointsRow([], _).
-
-allPointsRow([Head | Tail], Points) :-
-pointsInRow(Head, Points),
-allPointsRow(Tail, Points).
-
 
 /* =================== All Points In a Row =========================== */
 
