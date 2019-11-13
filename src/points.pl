@@ -1,3 +1,6 @@
+
+/* =================== All Points In every Column =========================== */
+
 allPointsColumn([], 0).
 
 allPointsColumn([Head | Tail], Points) :-
@@ -28,9 +31,18 @@ nth1(N_element, Head, Elem),
 append(List, [Elem], TMP),
 getColumnList(Tail, TMP, NewList, N_element).
 
+/* =================== All Points In a evert Row =========================== */
+
+allPointsRow([], _).
+
+allPointsRow([Head | Tail], Points) :-
+pointsInRow(Head, Points),
+allPointsRow(Tail, Points).
+
+
 /* =================== All Points In a Row =========================== */
+
 pointsInRow(List, Points) :-
-/*NewPoints_Size is 0, NewPoints_Colour is 0, NewPoints_Type is 0,*/
 checkPointsSizeRow(List, 0, NewPoints_Size),
 checkPointsColourRow(List, 0, NewPoints_Colour),
 checkPointsTypeRow(List, 0, NewPoints_Type),
