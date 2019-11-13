@@ -1,12 +1,26 @@
+allPointsColumn([], 0).
+
+allPointsColumn([Head | Tail], Points) :-
+length(Head, LenList),
+allPointsColumnAUX([Head | Tail], LenList, Points).
+
+allPointsColumnAUX(_, 0, _).
+
+allPointsColumnAUX(ListOfLists, LenList, Points) :-
+pointsInColumn(ListOfLists, Points, LenList),
+NewLenList is LenList - 1,
+allPointsColumnAUX(ListOfLists, NewLenList, Points).
 
 
-allPointsColumn(ListOfLists, Points, N_element) :-
+/* =================== All Points In a Column =========================== */
+pointsInColumn([], _, _).
+
+pointsInColumn(ListOfLists, Points, N_element) :-
 getColumnList(ListOfLists, [], ColumnList, N_element),
-allPointsRow(ColumnList, Points).
+pointsInRow(ColumnList, Points).
 
 
 /* Get a List with the Elements of a Column */
-/*append([1,2,3,4,6,7], [5], Z)*/
 getColumnList([], List, List, _).
 
 getColumnList([Head | Tail], List, NewList, N_element) :-
@@ -15,17 +29,20 @@ append(List, [Elem], TMP),
 getColumnList(Tail, TMP, NewList, N_element).
 
 /* =================== All Points In a Row =========================== */
-allPointsRow(List, Points) :-
+pointsInRow(List, Points) :-
+/*NewPoints_Size is 0, NewPoints_Colour is 0, NewPoints_Type is 0,*/
 checkPointsSizeRow(List, 0, NewPoints_Size),
 checkPointsColourRow(List, 0, NewPoints_Colour),
 checkPointsTypeRow(List, 0, NewPoints_Type),
 Points is NewPoints_Size + NewPoints_Colour + NewPoints_Type.
 
-allPointsRow([_ | Tail], Points) :-
-allPointsRow(Tail, Points).
+pointsInRow([_ | Tail], Points) :-
+pointsInRow(Tail, Points).
 
 
 /* =================== SIZE =================== */
+checkPointsSizeRow([], Points, Points).
+
 checkPointsSizeRow([planet(Size_1, _, _) | Tail], Points, NewPoints) :-
 checkPointsSizeRowCycle(Tail, Size_1, Points, NewPoints, 1).
 
@@ -54,6 +71,8 @@ checkPointsSizeRowCycle([_ | Tail], _, Points, NewPoints, _) :-
 checkPointsSizeRow(Tail, Points, NewPoints).
 
 /* =================== Colour =================== */
+checkPointsColourRow([], Points, Points).
+
 checkPointsColourRow([planet(_, Colour, _) | Tail], Points, NewPoints) :-
 checkPointsColourRowCycle(Tail, Colour, Points, NewPoints, 1).
 
@@ -81,6 +100,8 @@ checkPointsColourRowCycle([_ | Tail], _, Points, NewPoints, _) :-
 checkPointsColourRow(Tail, Points, NewPoints).
 
 /* =================== Type =================== */
+checkPointsTypeRow([], Points, Points).
+
 checkPointsTypeRow([planet(_, _, Type) | Tail], Points, NewPoints) :-
 checkPointsTypeRowCycle(Tail, Type, Points, NewPoints, 1).
 
