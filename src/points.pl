@@ -1,8 +1,18 @@
 
 
-/*allPointsColumn(ListOfLists, Points) :-
-getColumnList(ListOfLists, ColumnList),
-allPointsRow().*/
+allPointsColumn(ListOfLists, Points, N_element) :-
+getColumnList(ListOfLists, [], ColumnList, N_element),
+allPointsRow(ColumnList, Points).
+
+
+/* Get a List with the Elements of a Column */
+/*append([1,2,3,4,6,7], [5], Z)*/
+getColumnList([], List, List, _).
+
+getColumnList([Head | Tail], List, NewList, N_element) :-
+nth1(N_element, Head, Elem),
+append(List, [Elem], TMP),
+getColumnList(Tail, TMP, NewList, N_element).
 
 /* =================== All Points In a Row =========================== */
 allPointsRow(List, Points) :-
