@@ -1,5 +1,14 @@
 
 /* ========================================================================== */
+/* ================================ All Points ============================== */
+/* Receives a List of Lists */
+allPoints(List, Points):-
+allPointsColumn(List, PointsColumn),
+allPointsRow(List, PointsRow),
+Points is PointsColumn + PointsRow.
+
+
+/* ========================================================================== */
 /* =================== All Points In every Column =========================== */
 /* Receives a List of Lists */
 
