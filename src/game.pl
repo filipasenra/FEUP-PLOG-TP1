@@ -7,7 +7,7 @@
 :- use_module(library(lists)).
 :- use_module(library(random)).
 
-game :-
+exo :-
   printMainMenu,
   askMenuOption,
   read(Input),
