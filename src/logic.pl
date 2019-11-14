@@ -136,27 +136,33 @@ playerTurn(Board, NewBoard, Player, Cards, NewCards).
 
 clearScreen(_) :- write('\e[2J').
 
-isGameToContinue(Cards) :-
+isGameToContinue(Cards, _, _) :-
 length(Cards, LenList),
 LenList > 1.
 
-gameLoop(Player1, Player2, BoardPlayer1, NewBoardPlayer1, BoardPlayer2, NewBoardPlayer2, Cards) :-
+isGameToContinue(_, NewBoardPlayer1, NewBoardPlayer2) :-
+checkWinner(NewBoardPlayer1, NewBoardPlayer2),
+!, /* Prevents BackTracking because of false!*/
+false.
+
+gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
     clearScreen(_),
     playGame(BoardPlayer1, NewBoardPlayer1 , Player1, Cards, NewCards),
     clearScreen(_),
     playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2),
-    
-    !, isGameToContinue(NewCards2),
+    !,
+    isGameToContinue(NewCards2, NewBoardPlayer1, NewBoardPlayer2),
     gameLoop(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2, NewCards2).
-
 
 startGame(Player1, Player2) :-
       initialBoard(BoardPlayer1),
       initialBoard(BoardPlayer2),
       allCards(AllCards),
       random_permutation(AllCards, AllCardsShuffled),
-      gameLoop(Player1, Player2, BoardPlayer1, NewBoardPlayer1, BoardPlayer2, NewBoardPlayer2, AllCardsShuffled);
-      checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2),
+      gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, AllCardsShuffled);
       write('Thanks for Playing!\n').
 
-checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2) :- write('CheckWinner still in development!\n').
+checkWinner(NewBoardPlayer1, NewBoardPlayer2) :- 
+printBoard(NewBoardPlayer1),
+printBoard(NewBoardPlayer2),
+write('CheckWinner still in development!\n').
