@@ -4,5 +4,8 @@
 :- consult('input.pl').
 :- consult('points.pl').
 
+:- use_module(library(lists)).
+:- use_module(library(random)).
+
 game :-
       mainMenu.

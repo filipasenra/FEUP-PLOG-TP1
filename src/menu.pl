@@ -2,31 +2,32 @@ mainMenu :-
     printMainMenu,
     askMenuOption,
     read(Input),
-    manageInput(Input).
+    handleOption(Input).
 
-manageInput(1) :-
-    /*startGame('P','P'),*/
+handleOption(1) :-
+    write('\nPlayer 1: '),
+    read(Player1),
+    write('\nPlayer 2: '),
+    read(Player2),
+    startGame(Player1, Player2),
     mainMenu.
 
-manageInput(2) :-
+handleOption(2) :-
     /*startGame('P','C'),*/
     mainMenu.
 
-manageInput(3) :-
+handleOption(3) :-
     /*startGame('C','C'),*/
     mainMenu.
 
-manageInput(4) :-
-    write('Not a valid option!\n\n').
-
-manageInput(0) :-
+handleOption(0) :-
     write('\nSee you next time!\n\n').
 
-manageInput(_Other) :-
-    write('\nERROR: option '), write(_Other), write(' does not exist.\n\n'),
+handleOption(_Other) :-
+    write('\nInvalid option! Try again.\n\n'),
     askMenuOption,
     read(Input),
-    manageInput(Input).
+    handleOption(Input).
 
 printMainMenu :-
     write(' _________________________________ EXO _________________________________ '),nl,
@@ -38,7 +39,7 @@ printMainMenu :-
     write('|                                                                       |'),nl,
     write('|                          2. Player vs Computer                        |'),nl,
     write('|                                                                       |'),nl,
-	write('|                          3. Computer vs Computer                      |'),nl,
+	  write('|                          3. Computer vs Computer                      |'),nl,
     write('|                                                                       |'),nl,
     write('|                          0. Exit                                      |'),nl,
     write('|                                                                       |'),nl,

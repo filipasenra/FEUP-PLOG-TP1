@@ -1,7 +1,3 @@
-:- consult('board.pl').
-:- use_module(library(lists)).
-:- use_module(library(random)).
-
 addPiece(coord(X, Y), planet(Size, Colour, Type), OldBoard, NewBoard) :-
         addColumn(X, OldBoard, Board_1),
         addLine(Y, Board_1, Board_2),
@@ -31,9 +27,9 @@ Element == 'empty',
 
 
 findElement(coord(X, Y), Board, Element) :-
-length(Board, LenList1), Y < LenList1, Y >= 0, 
+length(Board, LenList1), Y < LenList1, Y >= 0,
 nth0(Y, Board, NewList),
-length(NewList, LenList2), X < LenList2, X >= 0, 
+length(NewList, LenList2), X < LenList2, X >= 0,
 nth0(X, NewList, Element).
 
 /* Adding Column */
@@ -90,21 +86,21 @@ constructLine(N, [NewLine | Tail]) :-
 /* END Adding Line */
 
 /* Finds List Where the element needs to be subs and replaces it */
-subsPosition([NewBoard | Tail], [OldBoard | Tail], coord(X, 0), Element) :- 
+subsPosition([NewBoard | Tail], [OldBoard | Tail], coord(X, 0), Element) :-
     replace(OldBoard, X, Element, NewBoard).
 
 subsPosition([T | NewBoard], [T|L], coord(X, Y), Element) :-
-    subsPosition(NewBoard, L, coord(X, Y1), Element), 
+    subsPosition(NewBoard, L, coord(X, Y1), Element),
     Y is Y1 + 1.
 
 /* Subs Element at a certain Position of a List */
 
 replace([_| Tail ], 0, Element, [Element | Tail]).
 
-replace([H| Tail ], X, Element, [H | RecursiveTail]):- 
-    X > -1, 
-    NI is X-1, 
-    replace(Tail , NI, Element, RecursiveTail), 
+replace([H| Tail ], X, Element, [H | RecursiveTail]):-
+    X > -1,
+    NI is X-1,
+    replace(Tail , NI, Element, RecursiveTail),
     !.
 
 replace(L, _, _, L).
@@ -146,7 +142,7 @@ gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
     clearScreen(_),
     playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2),
     !,
-    (isGameToContinue(NewCards2, NewBoardPlayer1, NewBoardPlayer2); 
+    (isGameToContinue(NewCards2, NewBoardPlayer1, NewBoardPlayer2);
     (checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2), !, false)),
     gameLoop(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2, NewCards2).
 
@@ -158,7 +154,7 @@ startGame(Player1, Player2) :-
       gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, AllCardsShuffled);
       write('Thanks for Playing!\n').
 
-checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2) :- 
+checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2) :-
 write(Player1), write('\n'),
 printBoard(NewBoardPlayer1),
 write(Player2), write('\n'),
