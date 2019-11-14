@@ -9,6 +9,6 @@
 
 exo :-
   printMainMenu,
-  askMenuOption,
+  readOption,
   read(Input),
   handleOption(Input).

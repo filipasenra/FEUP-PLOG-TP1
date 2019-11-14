@@ -17,7 +17,7 @@ handleOption(3) :-
 handleOption(0) :-
     write('\nSee you next time!\n\n').
 
-handleOption(_Other) :-
+handleOption(_) :-
     write('\nInvalid option! Try again.\n\n'),
     readOption,
     read(Input),
