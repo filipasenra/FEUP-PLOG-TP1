@@ -1,9 +1,3 @@
-mainMenu :-
-    printMainMenu,
-    askMenuOption,
-    read(Input),
-    handleOption(Input).
-
 handleOption(1) :-
     write('\nPlayer 1: '),
     read(Player1),

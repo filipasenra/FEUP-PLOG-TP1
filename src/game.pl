@@ -8,4 +8,7 @@
 :- use_module(library(random)).
 
 game :-
-      mainMenu.
+  printMainMenu,
+  askMenuOption,
+  read(Input),
+  handleOption(Input).
