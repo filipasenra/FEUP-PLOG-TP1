@@ -19,7 +19,7 @@ handleOption(0) :-
 
 handleOption(_Other) :-
     write('\nInvalid option! Try again.\n\n'),
-    askMenuOption,
+    readOption,
     read(Input),
     handleOption(Input).
 
@@ -42,5 +42,5 @@ printMainMenu :-
     write('|                                                      Claudia Martins  |'),nl,
     write('|_______________________________________________________________________|'),nl, nl.
 
-askMenuOption :-
+readOption :-
     write('Option: ').
