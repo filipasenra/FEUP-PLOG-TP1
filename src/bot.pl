@@ -15,16 +15,15 @@ pcTurn(Board, NewBoard, Cards, NewCards) :-
   randomPos(Board, coord(Column, Row)),
   random(1, 7, RandPlanet),
   getPlanet(Cards, RandPlanet, Planet),
-  addPiece(coord(Column, Row), Planet, Board, NewBoard), !, eliminatePlanet(Cards, RandPlanet, NewCards).
+  !,
+  ((addPiece(coord(Column, Row), Planet, Board, NewBoard), !, eliminatePlanet(Cards, RandPlanet, NewCards));
+  pcTurn(Board, NewBoard, Cards, NewCards)).
 
 /* PC's play */
 playGamePC(Board, NewBoard, Cards, NewCards) :-
   printCards(Cards),
   write('\n'),
-  !,
-  (pcTurn(Board, NewBoard, Cards, NewCards), !,
-  printBoard(NewBoard),
-  write('\n\n\n')).
+  (pcTurn(Board, NewBoard, Cards, NewCards), !, printBoard(NewBoard), write('\n\n\n')).
 
 
 /* =========================================================================== */
