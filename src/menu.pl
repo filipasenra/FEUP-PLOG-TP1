@@ -4,17 +4,17 @@ handleOption(1) :-
     write('\nPlayer 2: '),
     read(Player2),
     startGame(Player1, Player2),
-    mainMenu.
+    exo.
 
 handleOption(2) :-
     write('\nPlayer: '),
     read(Player),
     startGamePvsC(Player),
-    mainMenu.
+    exo.
 
 handleOption(3) :-
-    /*startGame('C','C'),*/
-    mainMenu.
+    startGameCvsC,
+    exo.
 
 handleOption(0) :-
     write('\nSee you next time!\n\n').
@@ -35,7 +35,7 @@ printMainMenu :-
     write('|                                                                       |'),nl,
     write('|                          2. Player vs Computer                        |'),nl,
     write('|                                                                       |'),nl,
-	  write('|                          3. Computer vs Computer                      |'),nl,
+    write('|                          3. Computer vs Computer                      |'),nl,
     write('|                                                                       |'),nl,
     write('|                          0. Exit                                      |'),nl,
     write('|                                                                       |'),nl,
