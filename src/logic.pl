@@ -2,7 +2,7 @@ addPiece(coord(X, Y), planet(Size, Colour, Type), OldBoard, NewBoard) :-
         addColumn(X, OldBoard, Board_1),
         addLine(Y, Board_1, Board_2),
         updateCoord(X, X1),
-        updateCoord(Y, Y1),
+        updateCoord(Y, Y1), !,
         checkMove(coord(X1, Y1), Board_2),
         subsPosition(NewBoard, Board_2, coord(X1, Y1), planet(Size, Colour, Type)).
 
@@ -15,7 +15,6 @@ updateCoord(X, NewX) :- NewX is X-1.
 checkMove(coord(X, Y), Board) :-
 findElement(coord(X, Y), Board, Element),
 Element == 'empty',
-
 (X1 is X-1, findElement(coord(X1, Y), Board, Element1), Element1 \== 'empty');
 (Y1 is Y-1, findElement(coord(X, Y1), Board, Element2), Element2 \== 'empty');
 (X1 is X-1, Y1 is Y-1, findElement(coord(X1, Y1), Board, Element3), Element3 \== 'empty');
@@ -137,9 +136,9 @@ length(Cards, LenList),
 LenList > 1.
 
 gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
-    clearScreen(_),
+    /*clearScreen(_),*/
     playGame(BoardPlayer1, NewBoardPlayer1 , Player1, Cards, NewCards),
-    clearScreen(_),
+    /*clearScreen(_),*/
     playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2),
     !,
     (isGameToContinue(NewCards2, NewBoardPlayer1, NewBoardPlayer2);
