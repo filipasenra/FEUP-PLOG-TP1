@@ -3,6 +3,7 @@
 :- consult('board.pl').
 :- consult('input.pl').
 :- consult('points.pl').
+:- consult('bot.pl').
 
 :- use_module(library(lists)).
 :- use_module(library(random)).

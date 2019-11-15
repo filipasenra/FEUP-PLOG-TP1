@@ -7,7 +7,9 @@ handleOption(1) :-
     mainMenu.
 
 handleOption(2) :-
-    /*startGame('P','C'),*/
+    write('\nPlayer: '),
+    read(Player),
+    startGamePvsC(Player),
     mainMenu.
 
 handleOption(3) :-
