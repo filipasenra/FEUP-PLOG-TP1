@@ -5,8 +5,53 @@
 allPoints(List, Points):-
 allPointsColumn(List, PointsColumn),
 allPointsRow(List, PointsRow),
-Points is PointsColumn + PointsRow.
+allPointsDiagonal(List, PointsDiagonal),
+Points is PointsColumn + PointsRow + PointsDiagonal.
 
+/* ========================================================================== */
+/* =================== All Points In every Diagonal =========================== */
+/* Receives a List of Lists */
+
+allPointsDiagonal([], 0).
+
+allPointsDiagonal([Head | Tail], Points) :-
+length(Head, LenList),
+allPointsDiagonalFirstRow([Head | Tail], LenList, 0, PointsFirstRow),
+allPointsDiagonalOtherRows(Tail, 0, PointsOtherRows),
+Points is PointsFirstRow + PointsOtherRows.
+
+allPointsDiagonalFirstRow(_, 0, OldPoints, OldPoints).
+
+allPointsDiagonalFirstRow(List, N, OldPoints, NewPoints) :- 
+    diag(List, DiagList1, N),
+    pointsInRow(DiagList1, NewPoints1),
+
+    gaid(List, DiagList2, N),
+    pointsInRow(DiagList2, NewPoints2),
+
+    CurrentPoints is OldPoints + NewPoints1 + NewPoints2,
+    N1 is N - 1,
+    allPointsDiagonalFirstRow(List, N1, CurrentPoints, NewPoints).
+
+
+allPointsDiagonalOtherRows([], OldPoints, OldPoints).
+
+allPointsDiagonalOtherRows([Head | Tail], OldPoints, NewPoints) :-
+length(Head, LenList),
+
+diag([Head | Tail], DiagList1, 1),
+pointsInRow(DiagList1, NewPoints1),
+
+gaid([Head | Tail], DiagList2, LenList),
+pointsInRow(DiagList2, NewPoints2),
+
+Points is OldPoints + NewPoints1 + NewPoints2,
+allPointsDiagonalOtherRows(Tail, Points, NewPoints).
+
+
+
+diag(M,D, Desvio) :- findall(V, (nth1(I,M,X), I1 is I + Desvio - 1, nth1(I1,X,V)), D).
+gaid(M,G, Desvio) :- length(M,L), findall(V, (nth1(I,M,X),J is L-I + Desvio - 2,nth1(J,X,V)), G).
 
 /* ========================================================================== */
 /* =================== All Points In every Column =========================== */

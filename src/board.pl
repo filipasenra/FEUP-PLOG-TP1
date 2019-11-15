@@ -2,11 +2,12 @@ initialBoard([[sun]]).
 
 /*Size colour type */
 allCards([planet(small, red, terrestrial), planet(small, green, terrestrial), planet(medium, green, terrestrial), planet(large, green, terrestrial), planet(medium, blue, terrestrial),
-          planet(small, red, gaseous), planet(small, green, gaseous), planet(medium, green, gaseous), planet(large, green, gaseous), planet(medium, blue, gaseous),
+          planet(small, red, gaseous)
+          /*, planet(small, green, gaseous), planet(medium, green, gaseous), planet(large, green, gaseous), planet(medium, blue, gaseous),
           planet(small, red, ringed), planet(small, green, ringed), planet(medium, green, ringed), planet(large, green, ringed), planet(small, blue, ringed),
           planet(medium, red, ringed), planet(large, red, ringed), planet(large, blue, terrestrial), planet(large, blue, gaseous), planet(large, blue, ringed),
           planet(medium, red, gaseous), planet(large, red, gaseous), planet(small, blue, terrestrial), planet(small, blue, gaseous), planet(small, blue, ringed),
-          planet(medium, red, terrestrial), planet(large, red, terrestrial)
+          planet(medium, red, terrestrial), planet(large, red, terrestrial)*/
           ]).
 
 printCards(List) :-

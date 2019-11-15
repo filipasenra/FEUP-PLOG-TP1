@@ -142,7 +142,7 @@ gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
     playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2),
     !,
     (isGameToContinue(NewCards2, NewBoardPlayer1, NewBoardPlayer2);
-    (checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2), !, false)),
+    (checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2), !, fail)), !,
     gameLoop(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2, NewCards2).
 
 startGame(Player1, Player2) :-
@@ -153,9 +153,23 @@ startGame(Player1, Player2) :-
       gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, AllCardsShuffled);
       write('Thanks for Playing!\n').
 
-checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2) :-
+checkWinner(Player1, Player2, BoardPlayer1, BoardPlayer2) :-
 write(Player1), write('\n'),
-printBoard(NewBoardPlayer1),
+printBoard(BoardPlayer1),
 write(Player2), write('\n'),
-printBoard(NewBoardPlayer2),
-write('CheckWinner still in development!\n').
+printBoard(BoardPlayer2),
+!,
+allPoints(BoardPlayer1, PointsPlayer1),
+!,
+allPoints(BoardPlayer2, PointsPlayer2),
+write(Player1), write(' points are '), write(PointsPlayer1), write('!\n'),
+write(Player2), write(' points are '), write(PointsPlayer2), write('!\n'),
+!,
+writeWinner(Player1, PointsPlayer1, Player2, PointsPlayer2).
+
+writeWinner(Player1, PointsPlayer1, _, PointsPlayer2) :-
+PointsPlayer1 > PointsPlayer2,
+write(Player1), write(' won! Congratulations!\n').
+
+writeWinner(_, _, Player2, _) :-
+write(Player2), write(' won! Congratulations!\n').
