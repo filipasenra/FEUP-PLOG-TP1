@@ -15,14 +15,15 @@ updateCoord(X, NewX) :- NewX is X-1.
 checkMove(coord(X, Y), Board) :-
 findElement(coord(X, Y), Board, Element),
 Element == 'empty',
-(X1 is X-1, findElement(coord(X1, Y), Board, Element1), Element1 \== 'empty');
+!,
+((X1 is X-1, findElement(coord(X1, Y), Board, Element1), Element1 \== 'empty');
 (Y1 is Y-1, findElement(coord(X, Y1), Board, Element2), Element2 \== 'empty');
 (X1 is X-1, Y1 is Y-1, findElement(coord(X1, Y1), Board, Element3), Element3 \== 'empty');
 (X2 is X+1, findElement(coord(X2, Y), Board, Element4), Element4 \== 'empty');
 (Y2 is Y+1, findElement(coord(X, Y2), Board, Element5), Element5 \== 'empty');
 (X2 is X+1, Y2 is Y+1, findElement(coord(X2, Y2), Board, Element6), Element6 \== 'empty');
 (X1 is X-1, Y2 is Y+1, findElement(coord(X1, Y2), Board, Element7), Element7 \== 'empty');
-(X2 is X+1, Y1 is Y-1, findElement(coord(X2, Y1), Board, Element8), Element8 \== 'empty').
+(X2 is X+1, Y1 is Y-1, findElement(coord(X2, Y1), Board, Element8), Element8 \== 'empty')).
 
 
 findElement(coord(X, Y), Board, Element) :-
