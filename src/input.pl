@@ -1,9 +1,9 @@
-manageRow(NewRow) :-
+manageRow(Row) :-
     write('  > Row    '),
     read(Row).
     /* validateRow(Row, NewRow).*/
 
-manageColumn(NewColumn) :-
+manageColumn(Column) :-
     write('  > Column '),
     read(Column).
     /* validateColumn(Column, NewColumn).*/
