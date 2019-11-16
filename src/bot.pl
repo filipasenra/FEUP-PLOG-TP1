@@ -1,19 +1,23 @@
 /* Get a random position for the PC's play */
 randomPos(Board, coord(Column, Row)) :-
-  length(Board, LenList1),
-  LenListf1 is LenList1 + 1,
-  random(0, LenListf1, Rand1),
-  nth0(Row, Board, NewList),
-  length(NewList, LenList2),
-  LenListf2 is LenList2 + 1,
-  random(0, LenListf2, Rand2),
-  Column is Rand1,
-  Row is Rand2.
+  length(Board, NumColumns),
+  !,
+  (random(0, NumColumns, RandCol),
+  nth0(RandCol, Board, ListCol),
+  length(ListCol, NumRows),
+  !,
+  (random(0, NumRows, RandRow),
+  random(0, 3, AddCol),
+  random(0, 3, AddRow),
+  Column is RandCol + AddCol,
+  Row is RandRow + AddRow)).
 
 /* Verify PC's play */
 pcTurn(Board, NewBoard, Cards, NewCards) :-
   randomPos(Board, coord(Column, Row)),
-  random(1, 7, RandPlanet),
+  length(Cards, NumPlanets),
+  Total is NumPlanets + 1,
+  random(1, Total, RandPlanet),
   getPlanet(Cards, RandPlanet, Planet),
   !,
   ((addPiece(coord(Column, Row), Planet, Board, NewBoard), !, eliminatePlanet(Cards, RandPlanet, NewCards));
