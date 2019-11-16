@@ -71,7 +71,7 @@ NewLenList is LenList - 1,
 allPointsColumnAUX(ListOfLists, NewLenList, Points).
 
 /* ========================================================================= */
-/* =================== All Points In a every Row =========================== */
+/* ====================== All Points In every Row ========================== */
 /* Receives a List of Lists */
 
 allPointsRow([], _).
