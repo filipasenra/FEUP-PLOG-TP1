@@ -9,7 +9,8 @@ handleOption(1) :-
 handleOption(2) :-
     write('\nPlayer: '),
     read(Player),
-    startGamePvsC(Player),
+    chooseMode(Mode),
+    startGamePvsC(Player, Mode),
     exo.
 
 handleOption(3) :-
@@ -21,7 +22,7 @@ handleOption(0) :-
 
 handleOption(_) :-
     write('\nInvalid option! Try again.\n\n'),
-    readOption,
+    write('Option: '),
     read(Input),
     handleOption(Input).
 
@@ -44,5 +45,9 @@ printMainMenu :-
     write('|                                                      Claudia Martins  |'),nl,
     write('|_______________________________________________________________________|'),nl, nl.
 
-readOption :-
-    write('Option: ').
+
+chooseMode(Mode) :-
+    write('\nThere are two game modes you can choose: \n(1) Easy.  \n(2) Normal.\n'),
+    write('Your choice: '),
+    read(Mode).
+
