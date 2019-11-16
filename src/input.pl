@@ -1,24 +1,39 @@
 manageRow(NewRow) :-
-    readRow(NewRow).
+    write('  > Row    '),
+    read(Row).
     /* validateRow(Row, NewRow).*/
 
 manageColumn(NewColumn) :-
-    readColumn(NewColumn).
-    /* validateColumn(Column, NewColumn).*/
-
-managePlanet(Planet) :-
-    readPlanet(Planet).
-    /* validateRow(Row, NewRow).*/
-
-readRow(Row) :-
-    write('  > Row    '),
-    read(Row).
-
-readColumn(Column) :-
     write('  > Column '),
     read(Column).
+    /* validateColumn(Column, NewColumn).*/
 
-    
-readPlanet(Planet):-
+managePlanet(Planet, Cards) :-
+    readPlanet(NewPlanet),
+    checkPlanet(NewPlanet, Planet, Cards).
+
+checkPlanet(NewPlanet, Planet, Cards):-
+    Planet is NewPlanet.
+
+checkPlanet(NewPlanet, Planet, Cards):-
+    NewPlanet < 1,
+    write('\nInvalid Planet :( \n'),
+    managePlanet(Planet, Cards).
+
+checkPlanet(NewPlanet, Planet, Cards):-
+    length(Cards, SizeCards),
+    NewPlanet > SizeCards,
+    write('\nInvalid Planet :( \n'),
+    managePlanet(Planet, Cards).
+
+checkPlanet(NewPlanet, Planet, Cards):-
+    NewPlanet > 6,
+    write('\nInvalid Planet :( \n'),
+    managePlanet(Planet, Cards).
+
+readPlanet(Planet) :-
     write('  > Planet: '),
     read(Planet).
+
+    
+
