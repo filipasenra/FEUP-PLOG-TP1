@@ -83,9 +83,9 @@ startGamePvsC(Player, Mode) :-
 
 gameLoopCvsC(BoardPC1, BoardPC2, Cards) :-
     write('PC1: \n'),
-    playGamePC(BoardPC1, NewBoardPC1, Cards, NewCards),
+    playGamePC(BoardPC1, NewBoardPC1, Cards, NewCards, 1),
     write('PC2: \n'),
-    playGamePC(BoardPC2, NewBoardPC2, NewCards, NewCards2),
+    playGamePC(BoardPC2, NewBoardPC2, NewCards, NewCards2, 1),
     read(Input),
     !,
     (isGameToContinue(NewCards2, NewBoardPC1, NewBoardPC2);

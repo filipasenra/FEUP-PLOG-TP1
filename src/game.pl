@@ -10,6 +10,6 @@
 
 exo :-
   printMainMenu,
-  readOption,
+  write('Option: '),
   read(Input),
   handleOption(Input).
