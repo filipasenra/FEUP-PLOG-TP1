@@ -64,7 +64,7 @@ gameLoopPvsC(Player, BoardPlayer, BoardPC, Cards, Mode) :-
     write('\n\n\n PC played: \n'),
     playGamePC(BoardPC, NewBoardPC, NewCards, NewCards2, Mode),
     !,
-    (isGameToContinue(NewCards2, NewBoardPlayer, NewBoardPC);
+    (isGameToContinue(NewCards2);
     (checkWinner(Player, 'PC', NewBoardPlayer, NewBoardPC), !, false)), !,
     gameLoopPvsC(Player, NewBoardPlayer, NewBoardPC, NewCards2, Mode).
 
@@ -82,15 +82,15 @@ startGamePvsC(Player, Mode) :-
 /* =========================================================================== */
 
 gameLoopCvsC(BoardPC1, BoardPC2, Cards) :-
-    write('PC1: \n'),
-    playGamePC(BoardPC1, NewBoardPC1, Cards, NewCards, 1),
-    write('PC2: \n'),
-    playGamePC(BoardPC2, NewBoardPC2, NewCards, NewCards2, 1),
-    read(Input),
-    !,
-    (isGameToContinue(NewCards2, NewBoardPC1, NewBoardPC2);
-    (checkWinner('PC1', 'PC2', NewBoardPC1, NewBoardPC2), !, false)), !,
-    gameLoopCvsC(NewBoardPC1, NewBoardPC2, NewCards2).
+  read_line(_),
+  write('PC1: \n'),
+  playGamePC(BoardPC1, NewBoardPC1, Cards, NewCards, 1),
+  write('PC2: \n'),
+  playGamePC(BoardPC2, NewBoardPC2, NewCards, NewCards2, 1),
+  !,
+  (isGameToContinue(NewCards2);
+  (checkWinner('PC1', 'PC2', NewBoardPC1, NewBoardPC2), !, false)), !,
+  gameLoopCvsC(NewBoardPC1, NewBoardPC2, NewCards2).
 
 startGameCvsC :-
   initialBoard(BoardPC1),

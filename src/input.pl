@@ -12,7 +12,7 @@ managePlanet(Planet, Cards) :-
     readPlanet(NewPlanet),
     checkPlanet(NewPlanet, Planet, Cards).
 
-checkPlanet(NewPlanet, Planet, Cards):-
+checkPlanet(NewPlanet, Planet, _):-
     Planet is NewPlanet.
 
 checkPlanet(NewPlanet, Planet, Cards):-
