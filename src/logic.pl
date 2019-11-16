@@ -132,7 +132,7 @@ playerTurn(Board, NewBoard, Player, Cards, NewCards).
 
 clearScreen(_) :- write('\e[2J').
 
-isGameToContinue(Cards, _, _) :-
+isGameToContinue(Cards) :-
 length(Cards, LenList),
 LenList > 1.
 
@@ -142,7 +142,7 @@ gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
     /*clearScreen(_),*/
     playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2),
     !,
-    (isGameToContinue(NewCards2, NewBoardPlayer1, NewBoardPlayer2);
+    (isGameToContinue(NewCards2);
     (checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2), !, fail)), !,
     gameLoop(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2, NewCards2).
 
@@ -159,13 +159,10 @@ write(Player1), write('\n'),
 printBoard(BoardPlayer1),
 write(Player2), write('\n'),
 printBoard(BoardPlayer2),
-!,
 allPoints(BoardPlayer1, PointsPlayer1),
-!,
 allPoints(BoardPlayer2, PointsPlayer2),
 write(Player1), write(' points are '), write(PointsPlayer1), write('!\n'),
 write(Player2), write(' points are '), write(PointsPlayer2), write('!\n'),
-!,
 writeWinner(Player1, PointsPlayer1, Player2, PointsPlayer2).
 
 writeWinner(Player1, PointsPlayer1, _, PointsPlayer2) :-
