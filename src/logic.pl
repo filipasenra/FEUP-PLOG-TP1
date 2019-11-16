@@ -117,7 +117,7 @@ nth1(IndexPlanet, Cards, _, NewCards).
 playerTurn(Board, NewBoard, Player, Cards, NewCards) :-
 manageColumn(Column),
 manageRow(Row),
-managePlanet(IndexPlanet),
+managePlanet(IndexPlanet, Cards),
 getPlanet(Cards, IndexPlanet, Planet),
 !,
 ((addPiece(coord(Column, Row), Planet, Board, NewBoard), !, eliminatePlanet(Cards, IndexPlanet, NewCards));
