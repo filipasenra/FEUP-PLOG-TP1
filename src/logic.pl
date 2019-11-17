@@ -3,7 +3,7 @@ addPiece(coord(X, Y), planet(Size, Colour, Type), OldBoard, NewBoard) :-
         addLine(Y, Board_1, Board_2),
         updateCoord(X, X1),
         updateCoord(Y, Y1), 
-        checkMove(coord(X1, Y1), Board_2),
+        valid_move(coord(X1, Y1), Board_2),
         subsPosition(NewBoard, Board_2, coord(X1, Y1), planet(Size, Colour, Type)).
 
 /* Correct Coordenates after adjusting Board*/
@@ -11,7 +11,7 @@ updateCoord(0, 0).
 updateCoord(X, NewX) :- NewX is X-1.
 
 /* Check Move */
-checkMove(coord(X, Y), Board) :-
+valid_move(coord(X, Y), Board) :-
 X >= 0, Y >= 0, length(Board, LenList), Y < LenList, nth0(0, Board, ListOfList), length(ListOfList, LenListOfList), X < LenListOfList,
 findElement(coord(X, Y), Board, Element),
 Element == 'empty',

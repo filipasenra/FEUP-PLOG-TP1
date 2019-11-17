@@ -2,11 +2,13 @@
 /* ================================================= Intelligent Bot ================================================= */
 
 choose_move(coord(X, Y), BestCard, OldBoard, Cards) :-
+findall(E, (nth1(I,Cards,E), I =< 6), NewCards),
+
 addLine(0, OldBoard, Board_1), length(Board_1, ListLen2), L2 is ListLen2 + 1, addLine(L2, Board_1, Board_2),
 addColumn(0, Board_2, Board_3), nth0(0, Board_3, List), length(List, ListLen), L is ListLen + 1, addColumn(L, Board_3, Board),
 
 
-evaluate_and_choose(Cards, Board, (nil, -1000, nil), coord(X, Y), BestCard).
+evaluate_and_choose(NewCards, Board, (nil, -1000, nil), coord(X, Y), BestCard).
 
 evaluate_and_choose([Card | Cards], Board, Record, coord(BestX, BestY), BestCard) :-
 choose_move_coord(Move, Points, Board, Card),
@@ -27,7 +29,7 @@ evaluate_and_choose_coord(Moves, Planet, Board, (nil, -1000), coord(X, Y), Point
 
 evaluate_and_choose_coord([Move | Moves], Planet, Board, Record, coord(BestX, BestY), BestPoints) :-
   subsPosition(NewBoard, Board, Move, Planet),
-  allPoints(NewBoard, Points),
+  value(NewBoard, Points),
   update(Move, Points, Record, Record1),
   evaluate_and_choose_coord(Moves, Planet, Board, Record1, coord(BestX, BestY), BestPoints).
 
@@ -37,7 +39,13 @@ update(_, Points, (Move1, Value1), (Move1, Value1)) :-
 Points < Value1.
 
 update(Move, Points, (_, Value1), (Move, Points)) :-
-Points >= Value1.
+Points > Value1.
+
+update(Move, Points, _, (Move, Points)) :-
+random(0, 2, N),
+N == 1.
+
+update(_, _, (Move1, Value1), (Move1, Value1)).
 
 /* ================================================= END OF Intelligent Bot ================================================= */
 
