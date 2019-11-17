@@ -89,7 +89,7 @@ pcTurn(Board, NewBoard, Cards, NewCards, 1) :-
 playGamePC(Board, NewBoard, Cards, NewCards, Mode) :-
   printCards(Cards),
   write('\n'),
-  (pcTurn(Board, NewBoard, Cards, NewCards, Mode), !, printBoard(NewBoard), write('\n\n\n')).
+  (pcTurn(Board, NewBoard, Cards, NewCards, Mode), !, printBoard(NewBoard), write('\n\n\n')), read_line(_).
 
 
 /* =========================================================================== */
@@ -98,6 +98,7 @@ playGamePC(Board, NewBoard, Cards, NewCards, Mode) :-
 
 gameLoopPvsC(Player, BoardPlayer, BoardPC, Cards, Mode) :-
     playGame(BoardPlayer, NewBoardPlayer , Player, Cards, NewCards),
+    read_line(_),
     write('\n\n\n PC played: \n'),
     playGamePC(BoardPC, NewBoardPC, NewCards, NewCards2, Mode),
     !,
@@ -119,7 +120,6 @@ startGamePvsC(Player, Mode) :-
 /* =========================================================================== */
 
 gameLoopCvsC(BoardPC1, ModePC1, BoardPC2, ModePC2, Cards) :-
-  read_line(_),
   write('PC1: \n'),
   playGamePC(BoardPC1, NewBoardPC1, Cards, NewCards, ModePC1),
   write('PC2: \n'),
@@ -134,5 +134,6 @@ startGameCvsC(ModePC1, ModePC2):-
   initialBoard(BoardPC2),
   allCards(AllCards),
   random_permutation(AllCards, AllCardsShuffled),
+  read_line(_),
   gameLoopCvsC(BoardPC1, ModePC1, BoardPC2, ModePC2, AllCardsShuffled);
   write('Thanks for Playing!\n').
