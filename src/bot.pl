@@ -1,19 +1,30 @@
 
 /* ================================================= Intelligent Bot ================================================= */
 
+/*choose_move(-Position, -BestCard, +Board, +Cards)*/
 choose_move(coord(X, Y), BestCard, OldBoard, Cards) :-
+
+/* Make Board as Big As Possible to contemplate all possibilities of coordinates */
 addLine(0, OldBoard, Board_1), length(Board_1, ListLen2), L2 is ListLen2 + 1, addLine(L2, Board_1, Board_2),
 addColumn(0, Board_2, Board_3), nth0(0, Board_3, List), length(List, ListLen), L is ListLen + 1, addColumn(L, Board_3, Board),
 
+/* Moves has all coordinates possible */
+findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), checkMove(coord(X1, Y1), Board)), Moves),
 
-evaluate_and_choose(Cards, Board, (nil, -1000, nil), coord(X, Y), BestCard).
+evaluate_and_choose(Cards, Board, Moves, (nil, -1000, nil), coord(X, Y), BestCard).
 
-evaluate_and_choose([Card | Cards], Board, Record, coord(BestX, BestY), BestCard) :-
-choose_move_coord(Move, Points, Board, Card),
+
+/* Chooses the Best Card */
+evaluate_and_choose([Card | Cards], Board, Moves, Record, coord(BestX, BestY), BestCard) :-
+
+/* Gets the Best Position of a Card and the Points if that card is choosen */
+choose_move_coord(Move, Points, Board, Card, Moves),
+
 updateCard(Move, Points, Card, Record, Record1),
-evaluate_and_choose(Cards, Board, Record1, coord(BestX, BestY), BestCard).
+evaluate_and_choose(Cards, Board, Moves, Record1, coord(BestX, BestY), BestCard).
 
-evaluate_and_choose([], _, (Move, _, Card), Move, Card).
+evaluate_and_choose([], _, _, (Move, _, Card), Move, Card).
+
 
 updateCard(_, Points, _, (Move1, Value1, Card1), (Move1, Value1, Card1)) :-
 Points =< Value1.
@@ -21,8 +32,8 @@ Points =< Value1.
 updateCard(Move, Points, Card, (_, Value1, _), (Move, Points, Card)) :-
 Points > Value1.
 
-choose_move_coord(coord(X, Y), Points, Board, Planet) :- 
-findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), checkMove(coord(X1, Y1), Board)), Moves),
+/* Chooses the Best Position to the Card Given */
+choose_move_coord(coord(X, Y), Points, Board, Planet, Moves) :- 
 evaluate_and_choose_coord(Moves, Planet, Board, (nil, -1000), coord(X, Y), Points).
 
 evaluate_and_choose_coord([Move | Moves], Planet, Board, Record, coord(BestX, BestY), BestPoints) :-
