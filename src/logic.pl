@@ -111,17 +111,13 @@ replace(L, _, _, L).
 getPlanet(Cards, IndexPlanet, Planet) :-
 nth1(IndexPlanet, Cards, Planet).
 
-eliminatePlanet(Cards, IndexPlanet, NewCards) :-
-nth1(IndexPlanet, Cards, _, NewCards).
-
-
 playerTurn(Board, NewBoard, Player, Cards, NewCards) :-
 manageColumn(Column),
 manageRow(Row),
 managePlanet(IndexPlanet, Cards),
 getPlanet(Cards, IndexPlanet, Planet),
 !,
-((addPiece(coord(Column, Row), Planet, Board, NewBoard), !, eliminatePlanet(Cards, IndexPlanet, NewCards));
+((addPiece(coord(Column, Row), Planet, Board, NewBoard), !, delete(Cards, Planet, NewCards));
 
 (write('Not Possible!\n'), playerTurn(Board, NewBoard, Player, Cards, NewCards))).
 

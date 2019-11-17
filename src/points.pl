@@ -4,7 +4,7 @@
 /* Receives a List of Lists */
 allPoints(List, Points):-
 allPointsColumn(List, PointsColumn),
-allPointsRow(List, PointsRow),
+allPointsRow(List, 0, PointsRow),
 allPointsDiagonal(List, PointsDiagonal),
 Points is PointsColumn + PointsRow + PointsDiagonal.
 
@@ -61,24 +61,26 @@ allPointsColumn([], 0).
 
 allPointsColumn([Head | Tail], Points) :-
 length(Head, LenList),
-allPointsColumnAUX([Head | Tail], LenList, Points).
+allPointsColumnAUX([Head | Tail], LenList, 0, Points).
 
-allPointsColumnAUX(_, 0, _).
+allPointsColumnAUX(_, 0, Points, Points).
 
-allPointsColumnAUX(ListOfLists, LenList, Points) :-
-pointsInColumn(ListOfLists, Points, LenList),
+allPointsColumnAUX(ListOfLists, LenList, Points, NewPoints) :-
+pointsInColumn(ListOfLists, Points1, LenList),
 NewLenList is LenList - 1,
-allPointsColumnAUX(ListOfLists, NewLenList, Points).
+NewPoints1 is Points + Points1,
+allPointsColumnAUX(ListOfLists, NewLenList, NewPoints1, NewPoints).
 
 /* ========================================================================= */
 /* ====================== All Points In every Row ========================== */
 /* Receives a List of Lists */
 
-allPointsRow([], _).
+allPointsRow([], Points, Points).
 
-allPointsRow([Head | Tail], Points) :-
-pointsInRow(Head, Points),
-allPointsRow(Tail, Points).
+allPointsRow([Head | Tail], Points, NewPoints) :-
+pointsInRow(Head, Points1),
+Points2 is Points + Points1,
+allPointsRow(Tail, Points2, NewPoints).
 
 
 
