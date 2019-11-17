@@ -118,21 +118,21 @@ startGamePvsC(Player, Mode) :-
 /*                            Computer vs Computer                             */
 /* =========================================================================== */
 
-gameLoopCvsC(BoardPC1, BoardPC2, Cards) :-
+gameLoopCvsC(BoardPC1, ModePC1, BoardPC2, ModePC2, Cards) :-
   read_line(_),
   write('PC1: \n'),
-  playGamePC(BoardPC1, NewBoardPC1, Cards, NewCards, 1),
+  playGamePC(BoardPC1, NewBoardPC1, Cards, NewCards, ModePC1),
   write('PC2: \n'),
-  playGamePC(BoardPC2, NewBoardPC2, NewCards, NewCards2, 1),
+  playGamePC(BoardPC2, NewBoardPC2, NewCards, NewCards2, ModePC2),
   !,
   (isGameToContinue(NewCards2);
   (checkWinner('PC1', 'PC2', NewBoardPC1, NewBoardPC2), !, false)), !,
-  gameLoopCvsC(NewBoardPC1, NewBoardPC2, NewCards2).
+  gameLoopCvsC(NewBoardPC1, ModePC1, NewBoardPC2, ModePC2, NewCards2).
 
-startGameCvsC :-
+startGameCvsC(ModePC1, ModePC2):-
   initialBoard(BoardPC1),
   initialBoard(BoardPC2),
   allCards(AllCards),
   random_permutation(AllCards, AllCardsShuffled),
-  gameLoopCvsC(BoardPC1, BoardPC2, AllCardsShuffled);
+  gameLoopCvsC(BoardPC1, ModePC1, BoardPC2, ModePC2, AllCardsShuffled);
   write('Thanks for Playing!\n').

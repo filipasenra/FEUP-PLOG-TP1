@@ -27,10 +27,15 @@ handleOption(1) :-
 handleOption(2) :-
     write('\nPlayer: '),
     read(Player),
-    chooseMode(Player).
+    chooseMode(Mode),
+    startGamePvsC(Player, Mode).
 
 handleOption(3) :-
-    startGameCvsC.
+    write('\nPC1: '),
+    chooseMode(ModePC1),
+    write('\nPC2: '),
+    chooseMode(ModePc2),
+    startGameCvsC(ModePC1, ModePc2).
 
 handleOption(0) :-
     write('\nSee you next time!\n\n').
@@ -42,20 +47,16 @@ handleOption(_) :-
     handleOption(Input).
 
 
-chooseMode(Player) :-
+chooseMode(Mode) :-
     write('\nThere are two game modes you can choose: \n(1) Easy.  \n(2) Normal.\n'),
     write('Your choice: '),
     read(Mode),
-    handleMode(Mode, Player).
+    handleMode(Mode); chooseMode(Mode).
 
-handleMode(1, Player) :-
-    startGamePvsC(Player, 1).
 
-handleMode(2, Player) :-
-    startGamePvsC(Player, 2).
+handleMode(Mode) :- Mode == 1; Mode == 2.
 
-handleMode(_, Player) :-
+handleMode(Mode) :-
     write('\nInvalid mode! Try again.\n\n'),
-    write('Your choice: '),
-    read(Mode),
-    handleMode(Mode, Player).
+    !,
+    false.
