@@ -73,7 +73,6 @@ randomPos(Board, coord(Column, Row)) :-
 
 pcTurn(Board, NewBoard, Cards, NewCards, 2) :-
   choose_move(coord(Column, Row), Planet, Board, Cards),
-  write(Column), write('\n'), write(Row), write('\n'),
   !,
   ((addPiece(coord(Column, Row), Planet, Board, NewBoard), !, delete(Cards, Planet, NewCards));
   pcTurn(Board, NewBoard, Cards, NewCards, 2)).
