@@ -2,10 +2,10 @@
 /* ========================================================================== */
 /* ================================ All Points ============================== */
 /* Receives a List of Lists */
-value(List, Points):-
-allPointsColumn(List, PointsColumn),
-allPointsRow(List, 0, PointsRow),
-allPointsDiagonal(List, PointsDiagonal),
+value(Board, Points):-
+allPointsColumn(Board, PointsColumn),
+allPointsRow(Board, 0, PointsRow),
+allPointsDiagonal(Board, PointsDiagonal),
 Points is PointsColumn + PointsRow + PointsDiagonal.
 
 /* ========================================================================== */

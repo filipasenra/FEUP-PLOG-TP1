@@ -12,7 +12,6 @@ updateCoord(X, NewX) :- NewX is X-1.
 
 /* Check Move */
 valid_move(coord(X, Y), Board) :-
-X >= 0, Y >= 0, length(Board, LenList), Y < LenList, nth0(0, Board, ListOfList), length(ListOfList, LenListOfList), X < LenListOfList,
 findElement(coord(X, Y), Board, Element),
 Element == 'empty',
 !,

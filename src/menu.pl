@@ -48,7 +48,7 @@ handleOption(_) :-
 
 
 chooseMode(Mode) :-
-    write('\nThere are two game modes you can choose: \n(1) Easy.  \n(2) Normal.\n'),
+    write('\nThere are two game modes you can choose: \n(1) Easy.  \n(2) Difficult.\n'),
     write('Your choice: '),
     read(Mode),
     handleMode(Mode); chooseMode(Mode).

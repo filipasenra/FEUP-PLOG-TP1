@@ -29,12 +29,6 @@ length(Cards, LenList),
 LenList < 2,
 writeWinner(Player1, Player2, BoardPlayer1, BoardPlayer2).
 
-
-/* Indicates if the Game is to Continue (if it is not GameOver)*/
-isGameToContinue(Cards) :-
-length(Cards, LenList),
-LenList > 1.
-
 /* Loop of the Game with 2 humans */
 gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
     /*clearScreen(_),*/
@@ -73,4 +67,8 @@ PointsPlayer1 > PointsPlayer2,
 write(Player1), write(' won! Congratulations!\n').
 
 writeWinner(_, _, Player2, _) :-
+PointsPlayer2 > PointsPlayer1,
 write(Player2), write(' won! Congratulations!\n').
+
+writeWinner(_, _, _, _) :-
+write('It\'s a Tie! Congratulations to you both!\n').
