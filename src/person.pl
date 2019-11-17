@@ -57,18 +57,18 @@ write(Player2), write('\n'),
 printBoard(BoardPlayer2),
 value(BoardPlayer1, PointsPlayer1),
 value(BoardPlayer2, PointsPlayer2),
-write(Player1), write(' points are '), write(PointsPlayer1), write('!\n'),
-write(Player2), write(' points are '), write(PointsPlayer2), write('!\n'),
-writeWinner(Player1, PointsPlayer1, Player2, PointsPlayer2).
+write(Player1), write(' points are '), write(PointsPlayer1), write('!\n\n'),
+write(Player2), write(' points are '), write(PointsPlayer2), write('!\n\n'),
+printsWinner(Player1, PointsPlayer1, Player2, PointsPlayer2).
 
 /* Writes Who is the Winner */
-writeWinner(Player1, PointsPlayer1, _, PointsPlayer2) :-
+printsWinner(Player1, PointsPlayer1, _, PointsPlayer2) :-
 PointsPlayer1 > PointsPlayer2,
 write(Player1), write(' won! Congratulations!\n').
 
-writeWinner(_, _, Player2, _) :-
+printsWinner(_, PointsPlayer1, Player2, PointsPlayer2) :-
 PointsPlayer2 > PointsPlayer1,
 write(Player2), write(' won! Congratulations!\n').
 
-writeWinner(_, _, _, _) :-
+printsWinner(_, _, _, _) :-
 write('It\'s a Tie! Congratulations to you both!\n').
