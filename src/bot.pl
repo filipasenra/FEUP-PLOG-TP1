@@ -18,10 +18,16 @@ evaluate_and_choose(Cards, Board, Record1, coord(BestX, BestY), BestCard).
 evaluate_and_choose([], _, (Move, _, Card), Move, Card).
 
 updateCard(_, Points, _, (Move1, Value1, Card1), (Move1, Value1, Card1)) :-
-Points =< Value1.
+Points < Value1.
 
 updateCard(Move, Points, Card, (_, Value1, _), (Move, Points, Card)) :-
 Points > Value1.
+
+updateCard(Move, Points, Card, (_, _, _), (Move, Points, Card)) :-
+random(0, 2, N),
+N == 1.
+
+updateCard(_, _, _, (Move1, Value1, Card1), (Move1, Value1, Card1)).
 
 choose_move_coord(coord(X, Y), Points, Board, Planet) :- 
 findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), checkMove(coord(X1, Y1), Board)), Moves),
