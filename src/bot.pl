@@ -30,7 +30,7 @@ N == 1.
 updateCard(_, _, _, (Move1, Value1, Card1), (Move1, Value1, Card1)).
 
 choose_move_coord(coord(X, Y), Points, Board, Planet) :- 
-findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), checkMove(coord(X1, Y1), Board)), Moves),
+findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), valid_move(coord(X1, Y1), Board)), Moves),
 evaluate_and_choose_coord(Moves, Planet, Board, (nil, -1000), coord(X, Y), Points).
 
 evaluate_and_choose_coord([Move | Moves], Planet, Board, Record, coord(BestX, BestY), BestPoints) :-
