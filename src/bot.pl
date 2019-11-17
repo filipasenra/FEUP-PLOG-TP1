@@ -1,30 +1,19 @@
 
 /* ================================================= Intelligent Bot ================================================= */
 
-/*choose_move(-Position, -BestCard, +Board, +Cards)*/
 choose_move(coord(X, Y), BestCard, OldBoard, Cards) :-
-
-/* Make Board as Big As Possible to contemplate all possibilities of coordinates */
 addLine(0, OldBoard, Board_1), length(Board_1, ListLen2), L2 is ListLen2 + 1, addLine(L2, Board_1, Board_2),
 addColumn(0, Board_2, Board_3), nth0(0, Board_3, List), length(List, ListLen), L is ListLen + 1, addColumn(L, Board_3, Board),
 
-/* Moves has all coordinates possible */
-findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), checkMove(coord(X1, Y1), Board)), Moves),
 
-evaluate_and_choose(Cards, Board, Moves, (nil, -1000, nil), coord(X, Y), BestCard).
+evaluate_and_choose(Cards, Board, (nil, -1000, nil), coord(X, Y), BestCard).
 
-
-/* Chooses the Best Card */
-evaluate_and_choose([Card | Cards], Board, Moves, Record, coord(BestX, BestY), BestCard) :-
-
-/* Gets the Best Position of a Card and the Points if that card is choosen */
-choose_move_coord(Move, Points, Board, Card, Moves),
-
+evaluate_and_choose([Card | Cards], Board, Record, coord(BestX, BestY), BestCard) :-
+choose_move_coord(Move, Points, Board, Card),
 updateCard(Move, Points, Card, Record, Record1),
-evaluate_and_choose(Cards, Board, Moves, Record1, coord(BestX, BestY), BestCard).
+evaluate_and_choose(Cards, Board, Record1, coord(BestX, BestY), BestCard).
 
-evaluate_and_choose([], _, _, (Move, _, Card), Move, Card).
-
+evaluate_and_choose([], _, (Move, _, Card), Move, Card).
 
 updateCard(_, Points, _, (Move1, Value1, Card1), (Move1, Value1, Card1)) :-
 Points =< Value1.
@@ -32,8 +21,8 @@ Points =< Value1.
 updateCard(Move, Points, Card, (_, Value1, _), (Move, Points, Card)) :-
 Points > Value1.
 
-/* Chooses the Best Position to the Card Given */
-choose_move_coord(coord(X, Y), Points, Board, Planet, Moves) :- 
+choose_move_coord(coord(X, Y), Points, Board, Planet) :- 
+findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), checkMove(coord(X1, Y1), Board)), Moves),
 evaluate_and_choose_coord(Moves, Planet, Board, (nil, -1000), coord(X, Y), Points).
 
 evaluate_and_choose_coord([Move | Moves], Planet, Board, Record, coord(BestX, BestY), BestPoints) :-
@@ -70,6 +59,7 @@ randomPos(Board, coord(Column, Row)) :-
 
 pcTurn(Board, NewBoard, Cards, NewCards, 2) :-
   choose_move(coord(Column, Row), Planet, Board, Cards),
+  write(Column), write('\n'), write(Row), write('\n'),
   !,
   ((addPiece(coord(Column, Row), Planet, Board, NewBoard), !, delete(Cards, Planet, NewCards));
   pcTurn(Board, NewBoard, Cards, NewCards, 2)).
@@ -102,9 +92,8 @@ gameLoopPvsC(Player, BoardPlayer, BoardPC, Cards, Mode) :-
     write('\n\n\n PC played: \n'),
     playGamePC(BoardPC, NewBoardPC, NewCards, NewCards2, Mode),
     !,
-    (isGameToContinue(NewCards2);
-    (checkWinner(Player, 'PC', NewBoardPlayer, NewBoardPC), !, false)), !,
-    gameLoopPvsC(Player, NewBoardPlayer, NewBoardPC, NewCards2, Mode).
+    (game_over(Player, NewBoardPlayer, 'PC', NewBoardPC, NewCards2);
+    gameLoopPvsC(Player, NewBoardPlayer, NewBoardPC, NewCards2, Mode)).
 
 startGamePvsC(Player, Mode) :-
   initialBoard(BoardPlayer),
@@ -125,9 +114,8 @@ gameLoopCvsC(BoardPC1, ModePC1, BoardPC2, ModePC2, Cards) :-
   write('PC2: \n'),
   playGamePC(BoardPC2, NewBoardPC2, NewCards, NewCards2, ModePC2),
   !,
-  (isGameToContinue(NewCards2);
-  (checkWinner('PC1', 'PC2', NewBoardPC1, NewBoardPC2), !, false)), !,
-  gameLoopCvsC(NewBoardPC1, ModePC1, NewBoardPC2, ModePC2, NewCards2).
+  (game_over('PC1', NewBoardPC1, 'PC2', NewBoardPC2, NewCards2); 
+  gameLoopCvsC(NewBoardPC1, ModePC1, NewBoardPC2, ModePC2, NewCards2)).
 
 startGameCvsC(ModePC1, ModePC2):-
   initialBoard(BoardPC1),

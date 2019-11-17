@@ -24,6 +24,12 @@ playerTurn(Board, NewBoard, Cards, NewCards).
 
 clearScreen(_) :- write('\e[2J').
 
+game_over(Player1, BoardPlayer1, Player2, BoardPlayer2, Cards) :-
+length(Cards, LenList),
+LenList < 2,
+writeWinner(Player1, Player2, BoardPlayer1, BoardPlayer2).
+
+
 /* Indicates if the Game is to Continue (if it is not GameOver)*/
 isGameToContinue(Cards) :-
 length(Cards, LenList),
@@ -36,9 +42,8 @@ gameLoop(Player1, Player2, BoardPlayer1, BoardPlayer2, Cards) :-
     /*clearScreen(_),*/
     playGame(BoardPlayer2, NewBoardPlayer2 , Player2, NewCards, NewCards2),
     !,
-    (isGameToContinue(NewCards2);
-    (checkWinner(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2), !, fail)), !,
-    gameLoop(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2, NewCards2).
+    (game_over(Player1, NewBoardPlayer1, Player2, NewBoardPlayer2, NewCards2);
+    gameLoop(Player1, Player2, NewBoardPlayer1, NewBoardPlayer2, NewCards2)).
 
 /* Start of a Game with 2 humans */
 startGame(Player1, Player2) :-
@@ -51,7 +56,7 @@ startGame(Player1, Player2) :-
 
 /* Handles Actions After The Game is Finish (Game is Over)*/
 
-checkWinner(Player1, Player2, BoardPlayer1, BoardPlayer2) :-
+writeWinner(Player1, Player2, BoardPlayer1, BoardPlayer2) :-
 write(Player1), write('\n'),
 printBoard(BoardPlayer1),
 write(Player2), write('\n'),
