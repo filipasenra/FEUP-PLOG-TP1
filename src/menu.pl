@@ -22,18 +22,15 @@ handleOption(1) :-
     read(Player1),
     write('\nPlayer 2: '),
     read(Player2),
-    startGame(Player1, Player2),
-    exo.
+    startGame(Player1, Player2).
 
 handleOption(2) :-
     write('\nPlayer: '),
     read(Player),
-    chooseMode(Player),
-    exo.
+    chooseMode(Player).
 
 handleOption(3) :-
-    startGameCvsC,
-    exo.
+    startGameCvsC.
 
 handleOption(0) :-
     write('\nSee you next time!\n\n').
