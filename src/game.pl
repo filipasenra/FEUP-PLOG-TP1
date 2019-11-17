@@ -9,7 +9,7 @@
 :- use_module(library(lists)).
 :- use_module(library(random)).
 
-exo :-
+play :-
   clearScreen(_),
   printMainMenu,
   write('Option: '),

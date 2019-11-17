@@ -56,7 +56,7 @@ chooseMode(Mode) :-
 
 handleMode(Mode) :- Mode == 1; Mode == 2.
 
-handleMode(Mode) :-
+handleMode(_) :-
     write('\nInvalid mode! Try again.\n\n'),
     !,
     false.
