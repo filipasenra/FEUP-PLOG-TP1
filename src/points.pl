@@ -2,7 +2,7 @@
 /* ========================================================================== */
 /* ================================ All Points ============================== */
 /* Receives a List of Lists */
-allPoints(List, Points):-
+value(List, Points):-
 allPointsColumn(List, PointsColumn),
 allPointsRow(List, 0, PointsRow),
 allPointsDiagonal(List, PointsDiagonal),

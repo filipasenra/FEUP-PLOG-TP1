@@ -9,7 +9,7 @@ addLine(0, OldBoard, Board_1), length(Board_1, ListLen2), L2 is ListLen2 + 1, ad
 addColumn(0, Board_2, Board_3), nth0(0, Board_3, List), length(List, ListLen), L is ListLen + 1, addColumn(L, Board_3, Board),
 
 /* Moves has all coordinates possible */
-findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), checkMove(coord(X1, Y1), Board)), Moves),
+findall(coord(X1, Y1), (nth0(Y1, Board, List), nth0(X1, List, _), valid_move(coord(X1, Y1), Board)), Moves),
 
 evaluate_and_choose(Cards, Board, Moves, (nil, -1000, nil), coord(X, Y), BestCard).
 
@@ -38,7 +38,7 @@ evaluate_and_choose_coord(Moves, Planet, Board, (nil, -1000), coord(X, Y), Point
 
 evaluate_and_choose_coord([Move | Moves], Planet, Board, Record, coord(BestX, BestY), BestPoints) :-
   subsPosition(NewBoard, Board, Move, Planet),
-  allPoints(NewBoard, Points),
+  value(NewBoard, Points),
   update(Move, Points, Record, Record1),
   evaluate_and_choose_coord(Moves, Planet, Board, Record1, coord(BestX, BestY), BestPoints).
 
